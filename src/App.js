@@ -63,11 +63,10 @@ import EmailLogin from './component/EmailLogin';
 
 function App() {
 
-  const { getImgUrl, buyTab, setBuyTab, toggleBuyTab } = useContext(DataContext);
+  const { getImgUrl, buyTab, setBuyTab, toggleBuyTab, isLoading, setIsLoading } = useContext(DataContext);
  
  
 
-  const [isLoading, setIsLoading,] = useState(false);
  
 
 

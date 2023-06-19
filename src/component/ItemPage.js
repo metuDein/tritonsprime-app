@@ -48,6 +48,15 @@ const ItemPage = () => {
 
     }, [buyItemQuantity])
 
+    useEffect(() => {
+        setIsLoading(true);
+
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 4000)
+
+    }, [])
+
 
     const handleBuy = () => {
         setBuyTab(true)
