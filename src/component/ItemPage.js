@@ -49,25 +49,27 @@ const ItemPage = () => {
     }, [buyItemQuantity])
 
     useEffect(() => {
-        const findAsset = async() => {
-            try {
+       
+        fetchAsset();
 
-                setIsLoading(true)
-                const appData = localStorage.getItem('appAssets');
-                if(!appData) return console.log('no app assets');
-                asset = appData.find(asset => asset._id === id);
-            } catch (error) {
-                console.log(error);
-            }finally{
-                setTimeout(() => {
-                    setIsLoading(false)
-                }, 3000);
-        }
-           
-        }
-        findAsset();
+    }, [id])
 
-    }, [])
+    const fetchAsset = async() => {
+        try {
+            setIsLoading(true);
+            // Perform API call or fetch data based on the ID
+            const response = await axios.get(`/getallassets/${id}`);
+            const {data} = response
+            asset = data.asset
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }finally{
+            setTimeout(() => {
+                setIsLoading(false)
+            }, 6000);
+          }
+    }
+
 
 
     const handleBuy = () => {
@@ -166,7 +168,9 @@ const ItemPage = () => {
 
     return (
         <section className='item--page'>
-            {isLoading && <p>loading....</p>}
+            {isLoading && <div className='loading--screen'>
+          <FontAwesomeIcon icon={faSpinner} spin style={{color: "#c7d2e5", fontSize : '100px'}} />
+          </div>}
             
              <div className={`buy--tab ${buyTab ? 'active' : ''}`}>
                 <div className='buy-details'>
@@ -174,8 +178,8 @@ const ItemPage = () => {
                     <article className='buy--item--adjust' style={{ display: 'flex' }}>
                         <img src={getImgUrl(asset?.image)} alt="" />
                         <div className='pay--now'>
-                            <h1 className='buy--itm'> <span>Name :</span> {asset.name}</h1>
-                            <h1 className='buy--itm'> <span>Price :</span> {asset.price} <FaEthereum /> </h1>
+                            <h1 className='buy--itm'> <span>Name :</span> {asset?.name}</h1>
+                            <h1 className='buy--itm'> <span>Price :</span> {asset?.price} <FaEthereum /> </h1>
                             <h2 className='buy--quantity'><span>Quantity :</span> <input type="number" value={buyItemQuantity} onChange={handleQuantityChange} className='buy--tab--quantity' /></h2>
                             <h3 className='buy--fees'><span>Total :</span> {Total} <FaEthereum /></h3>
                             <button className='buy--btn' onClick={handleBuyProcess}> Buy </button>
@@ -217,7 +221,7 @@ const ItemPage = () => {
                     </div>
                 </div>
                 <div className='item-details-row-2'>
-                    <h3 className='company--title'>#{asset.name} <FaCheckCircle style={{ color: '#547dc4', marginLeft: '2px', marginTop: '2px', fontSize: '13px', background: '#fff', borderRadius: '50%' }} /></h3>
+                    <h3 className='company--title'>#{asset.name} {assetOwner.verified && <FaCheckCircle style={{ color: '#547dc4', marginLeft: '2px', marginTop: '2px', fontSize: '13px', background: '#fff', borderRadius: '50%' }} />}</h3>
                     <h1 className='name--title'>#{asset.categories} </h1>
                     <div>
                         <small>current price</small>
