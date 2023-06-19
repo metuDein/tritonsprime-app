@@ -1,4 +1,4 @@
-import { faShoppingCart, faCircleXmark, faTriangleExclamation, faCircleCheck, faHeart, faCartPlus, faRotate } from '@fortawesome/free-solid-svg-icons'
+import { faShoppingCart, faCircleXmark, faTriangleExclamation, faCircleCheck, faHeart, faCartPlus, faRotate, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { set } from 'date-fns';
 import { useEffect, useState, useContext } from 'react'
