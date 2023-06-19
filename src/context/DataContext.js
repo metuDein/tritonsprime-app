@@ -58,7 +58,7 @@ export const DataProvider = ({ children }) => {
   const toggleBuyTab = () => {setBuyTab(old => !old)}
 
 
-  use(() => {
+  useEffect(() => {
     setIsLoading(true);
 
     setTimeout(() => {
@@ -122,7 +122,6 @@ useEffect(() => {
       const response = await axios.get('/getallassets');
       console.log(response.data);
       setAllAssets(response.data.assets);
-      localStorage.setItem('appAssets', response.data.assets)
     if(response.status === 204 ) return console.log('no content');
       
     } catch (error) {
