@@ -155,7 +155,7 @@ function App() {
 
               </Route>
             {/* {missing get routes} */}
-              <Route path='/*' element={<NotFound />} />
+              <Route path='*' element={<NotFound />} />
  
             </Route>
           </Routes>
