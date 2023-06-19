@@ -109,7 +109,7 @@ function App() {
               <Route path='/explore' element={<ExplorePage toggleBuyTab={toggleBuyTab}/>} />
 
               {/* faq sections */}
-              <Route path='/' element={<FaqDept />}>
+              <Route path='/' element={<FaqDept />} >
                 <Route path='/faq-quick-answer' element={<Faqs />} />
                 <Route path='/faq-what-is-an-nft' element={<Faq />} />
                 <Route path='/faq-how-to-buy-an-nft' element={<HowToBuyAnNFT />} />

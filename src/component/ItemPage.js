@@ -16,7 +16,7 @@ const ItemPage = () => {
 
     const { id } = useParams()
 
-    const asset = allAssets.find(asset => asset._id === id);
+    let  asset = allAssets.find(asset => asset._id === id);
 
 
     const assetOwner = allUsers.find(user => user.userName === asset.OwnerName); 
@@ -49,11 +49,11 @@ const ItemPage = () => {
     }, [buyItemQuantity])
 
     useEffect(() => {
-        setIsLoading(true);
+        const appData = localStorage.getItem('appAssets');
 
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 4000)
+        if(!appData) return console.log('no app assets');
+        
+        asset = appData.find(asset => asset._id === id);
 
     }, [])
 
