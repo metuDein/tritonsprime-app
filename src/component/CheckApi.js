@@ -7,7 +7,7 @@ import AnimateTab from "./AnimateTab";
 const CheckApi = ({bannerData}) => {
 
  
-  const url = 'homepagenft'
+  const url = 'homepagedata'
   const [data, setData] = useState([]);
 
 
@@ -16,9 +16,8 @@ const CheckApi = ({bannerData}) => {
 
       try {
         const response = await axios.get(url);
-        const data = response.data
-        console.log(data);
-        setData(data)
+        
+        setData(response.data.assets)
       } catch (error) {
         console.error(error);
       }

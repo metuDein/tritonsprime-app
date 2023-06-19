@@ -7,7 +7,7 @@ import DataContext from "../context/DataContext";
 
 
 const GetNFTbyContract = () => {
-    const {address, setAddress, chain, setChain, cursor, setCursor, NFTs, setNFTs} = useContext(DataContext)
+    const { address, setAddress, chain, setChain, cursor, setCursor, NFTs, setNFTs } = useContext(DataContext)
 
     // const [address, setAddress] = useState("");
     // const [chain, setChain] = useState("0x1");
@@ -46,7 +46,20 @@ const GetNFTbyContract = () => {
         setNFTs(n.concat(res.data.result.result));
         setCursor(res.data.result.cursor);
         console.log(res);
+
+        try {
+            const assets = NFTs;
+            const response = await axios.post('/assetsget', JSON.stringify({ assets }), {
+                headers: {
+                    "Content-Type": 'application/json'
+                }
+            })
+        } catch (error) {
+            console.log(error.response.status);
+            console.log(error.response.message);
+        }
     }
+
 
     function addressChange(e) {
         setAddress(e.target.value);
@@ -60,13 +73,13 @@ const GetNFTbyContract = () => {
         setNFTs([]);
     }
 
-    
 
-    const createAsset =  async () => {
+
+    const createAsset = async () => {
         const assets = NFTs;
-        await axios.post('/assetsget', JSON.stringify({assets}), {
-            headers : {
-                "Content-Type" : 'application/json'
+        await axios.post('/assetsget', JSON.stringify({ assets }), {
+            headers: {
+                "Content-Type": 'application/json'
             }
         })
     }

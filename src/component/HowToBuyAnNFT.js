@@ -16,7 +16,7 @@ const HowToBuyAnNFT = () => {
 
             <div className='help--article'>
                 <h1 className='help--title-1' style={{color : '#fff'}}>How to buy an NFT?</h1>
-                <img src="https://opensea.io/static/images/learn-center//how-to-buy-nft.png" alt="" width={'100%'} className='howtobuyanftt--img' />
+                <img src="images/howtobuyannft.png" alt="" width={'100%'} className='howtobuyanftt--img' />
 
                 <div className='whats--is--nft'>
                     <h2>How to buy an NFT</h2>
@@ -68,9 +68,9 @@ const HowToBuyAnNFT = () => {
                 </div>
 
                 <div className='explain--nft-uses'>
-                    <h3>How to buy a NFT</h3>
-                    <Link to={'/how-to-create-an-nft'} >
-                        <img src="https://opensea.io/static/images/learn-center//how-to-create-nft.png" alt="" className='next--article' />
+                    <h3>How to create an NFT</h3>
+                    <Link to={'/faq-how-to-create-an-nft'} >
+                        <img src="images/createannftontritons.png" alt="" className='next--article' />
                     </Link>
                 </div>
             </div>

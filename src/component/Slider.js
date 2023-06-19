@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { FaCheckCircle } from 'react-icons/fa'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import DataContext from '../context/DataContext';
 
 
-const Slider = ({ bannerData }) => {
+const Slider = () => {
+  const {getImgUrl, bannerData} = useContext(DataContext)
 
  
 
@@ -28,7 +30,7 @@ const Slider = ({ bannerData }) => {
         key={slide._id}
         className={`slide ${index === currentSlide ? 'active' : ''}`}
         style={{
-          background: `url('${slide.logo}')`,
+          background: `url('${getImgUrl(slide.image)}')`,
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover'
@@ -39,7 +41,7 @@ const Slider = ({ bannerData }) => {
         </div>
         <div className='small--img--name'>
 
-          <img src={slide.logo} className='banner--img' />
+          <img src={getImgUrl(slide.image)} className='banner--img' />
           <h3 className='banner--nft--name' style={{ color: '#fff' }}>{slide.name} <FaCheckCircle style={{ color: '#547dc4', marginLeft: '2px',marginTop: '2px', fontSize: '13px', background: '#fff', borderRadius: '50%' }} /></h3>
         </div>
 

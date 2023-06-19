@@ -1,16 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faWallet, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { faWallet, faArrowLeft, faUser, faCircleCheck, faMessage } from '@fortawesome/free-solid-svg-icons'
 import { useContext } from 'react';
 import DataContext from '../context/DataContext';
 import useAuth from '../hook/useAuth';
 import Web3 from 'web3';
 import axios from '../api/axios';
 
+
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 
 const WalletLogin = () => {
+    
 
 
     const { auth, setAuth } = useAuth();
@@ -24,9 +26,26 @@ const WalletLogin = () => {
     const [getKey, setGetKey] = useState(null);
     const [contractAddress, setContractAddress] = useState('');
     const [privateKey, setPrivatekey] = useState('');
+    const [userName,  setUserName] = useState('');
+    const [userEmail,  setUserEmail] = useState('');
+    const [userImage,  setUserImage] = useState('');
+    const [addmore, setAddMore] = useState(false)
 
 
+    const handleSkip = () => {
+        setAddMore(false)
+        navigate(from, {replace : true});
+    }
 
+    const handleAddMore = async () => {
+        const response = await axios.patch('/addmoreinfo', JSON.stringify({ contractAddress : contractAddress, userEmail : userEmail, userName : userName}));
+        
+        if(response.status === 200) 
+        navigate(from, {replace : true});
+
+    }
+        
+    
 
 
 
@@ -52,10 +71,11 @@ const WalletLogin = () => {
         console.log(accounts);
         console.log(userAccount);
 
+        
         setContractAddress(userAccount);
-
         try {
-            const response = await axios.post('/getuser', JSON.stringify({ contractAddress: contractAddress }));
+
+            const response = await axios.post('/checkwalletauth', JSON.stringify({ walletAddress : userAccount }));
             console.log(response.status);
             console.log(response.data);
 
@@ -73,37 +93,106 @@ const WalletLogin = () => {
                 console.log(addKey);
 
 
-                const response = await axios.post('/auth', JSON.stringify({ contractAddress: contractAddress, privateKey: addKey }));
+                const response = await axios.post('/userwalletauth', JSON.stringify({ walletAddress: userAccount, privateKey: addKey }));
 
                 if (response.status === 200) {
                     setAuth(response.data);
                     console.log(auth);
-                    navigate(from, {replace : true});
-                }
 
+                    setAddMore(true)
+                    // navigate(from, {replace : true});
+                }
+                
                 console.log(response.status)
                 console.log(response.data)
-
+                
             }
-                setAuth(response.data);
-                console.log(auth);
+            setAuth(response.data);
+            console.log(auth);
+            
                 navigate(from, {replace : true});
-
-
-
 
         } catch (error) {
             console.log(error.response.data)
             console.log(error.response.status)
         }
 
+    }
+    const handleImageChange = (e) => {
+        console.log(e);
 
+        const reader = new FileReader();
+        reader.readAsDataURL(e.target.files[0]);
+        reader.onload = () => {
+            console.log(reader.result);
+            setUserImage(reader.result);
+        };
+        reader.onerror = error => console.log("error :", error);
 
     }
+
+    const handleNameChange = (e) => {
+        setUserName(e.target.value)
+        console.log(userName)
+    }
+    const handleEmailChange = (e) => {
+        setUserName(e.target.value)
+        console.log(userName)
+    }
+    
+
 
 
     return (
         <section className='wallet--sect'>
+         {addmore &&  
+         <section className='add-more'>
+                <form> 
+                <div className='create-nft-form wallet--login'>
+                <form encType='multipart/form-data' >
+                    <h1><FontAwesomeIcon icon={faCircleCheck} style={{color: "#19942e",}} /> Integration Successful</h1>
+                    <h1>Add more info</h1>
+
+                    <p>User Image</p>
+                    <label htmlFor='file-upload' className='file-upload'>
+                        <span className='upload-overlay'> </span>
+                        <input type="file" name='nftImage' id='file-upload' onChange={handleImageChange} />
+                        <span className='upload-screen-read'>{!userImage && userImage !== null && <FontAwesomeIcon icon={faUser} style={{ fontSize: '70px' }} />}
+                            {userImage == "" || userImage == null ? "" : <img src={userImage} alt="" style={{ zIndex: '10', objectFit: 'contain', width: '100%', height: '100%' }} />}</span>
+                    </label>
+                    <div className='nft-create-text'>
+                        <label htmlFor='file-name' className='nft-create-name'>
+                            Name 
+                        </label>
+                        <input
+                            type="text"
+                            name='nftName'
+                            id='file-name'
+                            placeholder='User name'
+                            onChange={handleNameChange}
+                            value={userName}
+                        />
+                    </div>
+                    <div className='nft-create-text'>
+                        <label htmlFor='user-email' className='nft-create-name'>
+                            <p>Email Address</p> <span></span>
+                        </label>
+                        <input
+                            type="text"
+                            id='user-email'
+                            placeholder='your email'
+                            onChange={handleEmailChange}
+                            value={userEmail}
+                        />
+                    </div>
+
+                    <button onClick={handleAddMore}> Done </button>
+                    <button style={{marginLeft : '10px'}} onClick={handleSkip}> Skip</button>
+                </form>
+            </div>
+                </form>
+            </section> }
+
             <button className='return-button'>
                 <Link to={'/'} style={{ color: '#000', width: '100%' }}>
                     <FontAwesomeIcon icon={faArrowLeft} style={{ fontSize: '16px' }} />
@@ -119,6 +208,11 @@ const WalletLogin = () => {
 
                     <span> Connect Your Wallet</span>
                     <FontAwesomeIcon icon={faWallet} />
+                </button>
+                <h1 style={{textAlign : 'center'}}> OR </h1>
+                <button className='login--btn' onClick={() => navigate('/auth')}>
+                    <span> Login with Email</span>
+                    <FontAwesomeIcon icon={faMessage} />
                 </button>
 
                 {

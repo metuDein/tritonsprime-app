@@ -1,10 +1,33 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useContext } from 'react'
 import DataContext from '../context/DataContext'
+import useAuth from '../hook/useAuth'
 
 const Footer = () => {
+    const {auth} = useAuth()
     const {darkmode} = useContext(DataContext); 
+
+    const [adminBtn, setAdminBtn] = useState(false)
+
+    useEffect(() => {
+
+
+        const setAdmin = () => {
+            if(!auth) return;
+
+            if(auth?.roles?.Admin === 5150) return setAdminBtn(true);
+
+            
+        }
+
+         setAdmin() 
+
+    }, [auth])
+
+
+
+
     return (
         <footer className='broker--footer'>
             <div className='footer--container'>
@@ -31,7 +54,7 @@ const Footer = () => {
                     <h3>Resources</h3>
                     <ul>
                         <li><Link to={'/support-request'} style={{color : `${darkmode ? '#000' : '#fff'}`, textDecoration : 'none'}}>Help Center</Link></li>
-                        <li><Link to={'/profile'} style={{color : `${darkmode ? '#000' : '#fff'}`, textDecoration : 'none'}}>Activity </Link></li>
+                        <li><Link to={'/purchase'} style={{color : `${darkmode ? '#000' : '#fff'}`, textDecoration : 'none'}}>Activity </Link></li>
                     </ul>
                 </div>
                 <div className='footer--row--4'>
@@ -40,6 +63,7 @@ const Footer = () => {
                         <li><Link to={'/support-request'} style={{color : `${darkmode ? '#000' : '#fff'}`, textDecoration : 'none'}}>Contact Us </Link></li>
                         <li><Link to={'/faq-who-is-tritonsprime'} style={{color : `${darkmode ? '#000' : '#fff'}`, textDecoration : 'none'}}>About</Link></li>
                         <li><Link to={'/faq-quick-answer'} style={{color : `${darkmode ? '#000' : '#fff'}`, textDecoration : 'none'}}>Faq</Link></li>
+                        {auth?.roles?.includes(5150) && <li><Link to={'/admin-panel'} style={{color : `${darkmode ? '#000' : '#fff'}`, textDecoration : 'none'}}>Admin Panel</Link></li>}
                     </ul>
                 </div>
                     <div className='footer--row--5'>

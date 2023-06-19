@@ -3,6 +3,10 @@
   font-family: Poppins;
   transition: all 0.3s;
 }
+a{
+  color: #fff;
+  text-decoration: none;
+}
 
 .App-header {
   background-color: #282c34;
@@ -89,6 +93,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  text-align: center;
 }
 
 .nft--price p {
@@ -127,6 +132,15 @@
 
 .purchase--bar span {
   flex-grow: 1;
+}
+.category{
+  position: absolute;
+  top: 0;
+  left: 10px;
+  background: #000;
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
 }
 
 /* test slider */
@@ -333,13 +347,12 @@
 .web-logo {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   color: #fff;
-  /* width: 1; */
 }
 
 .weblogo--img {
-  flex-basis: 20%;
+  
   width: 100%;
   object-fit: contain;
 }
@@ -406,7 +419,9 @@
   padding: 10px;
   height: 350px;
 }
-
+.media--balance{
+  display: none;
+}
 .nav-dropdown li {
   margin: 10px 0;
   border-radius: 5px;
@@ -481,7 +496,7 @@
 }
 
 .help--card {
-  width: 300px;
+  width: 100%;
   padding: 20px 20px;
   border-radius: 10px;
   background: #ccc;
@@ -507,11 +522,12 @@
 }
 
 .about-tab {
+  width: 100%;
   display: grid;
   grid-gap: 20px;
-  grid-template-columns: 1fr 1fr 1fr;
-  justify-content: space-between;
-  padding: 20px 150px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  padding: 20px 50px;
+  
 }
 
 .faq--card--sect {
@@ -520,7 +536,7 @@
   padding: 30px 150px;
   min-height: 20px;
   display: grid;
-  grid-template-columns: repeat(2, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   grid-gap: 30px;
 }
 
@@ -659,12 +675,11 @@
 .main--display {
   overflow-y: scroll;
   width: 100%;
-  max-width: 100vw;
   max-height: 100vh;
   padding: 0 0 20px;
   position: relative;
   margin-bottom: 40px;
-  flex-grow: 1;
+  /* flex-grow: 1; */
 }
 .main--display::-webkit-scrollbar{
   display: none;
@@ -785,7 +800,9 @@
 .profile--banner {
   width: 100%;
   padding: 0 50px;
-  background: #777;
+  background: transparent;
+  background-position: center;
+  background-size:  contain;
   height: 200px;
   position: relative;
 }
@@ -847,6 +864,10 @@
   align-items: center;
   justify-content: space-between;
 }
+.data--table tbody{
+  flex-direction: column;
+  border: 0;
+}
 
 .data--table thead th {
   padding: 10px;
@@ -858,6 +879,8 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  border-bottom: 1px solid #777;
+  padding: 5px 0;
 }
 
 .data--table tbody tr td {
@@ -865,6 +888,14 @@
   padding: 10px;
 }
 
+
+.no--user--data{
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 /* collection setting */
 
 .collection-settings {
@@ -918,6 +949,9 @@
   width: 100%;
   padding: 0 40px;
 }
+.help--title-1{
+  color: #fff;
+}
 
 .create-nft-form {
   width: 50%;
@@ -931,8 +965,7 @@
 
 .file-upload {
   display: block;
-  width: 400px;
-  height: 300px;
+  width: 100%;
   border-radius: 10px;
   overflow: hidden;
   border: 1px solid #777;
@@ -962,6 +995,39 @@
   flex-direction: column;
 }
 
+.verification>label>input[type="checkbox"]{
+  display: none;
+
+}
+
+.check-visulalize{
+width: 40px;
+height: 20px;
+border-radius: 10px;
+background: #fff;
+position: relative;
+display: flex;
+align-items: center;
+}
+
+.active-check-span{
+  position: absolute;
+  right: 1px;
+}
+
+.check-visulalize span{
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: #050561;
+  display: block;
+  
+}
+
+.whatisanftt--img{
+  background: #000;
+}
+
 .nft-create-text>input {
   width: 100%;
   padding: 10px 30px;
@@ -985,6 +1051,8 @@
   outline: none;
   border: 0;
 }
+
+
 
 select option:checked {
   background-color: white;
@@ -1017,6 +1085,7 @@ select option:checked {
 .item--page {
   width: 100%;
   padding: 10px 30px;
+  position: relative;
 }
 
 .item-details {
@@ -1053,6 +1122,15 @@ select option:checked {
   border: 1px solid #777;
   border-right: none;
   transition: all 0.3s;
+}
+
+.checkout{
+  background :#fff;
+  width:100% ;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 
@@ -1110,10 +1188,13 @@ small {
   border: 1px solid #777;
   margin-top: 30px;
   display: grid;
-  grid-template-columns: repeat(2, minmax(175px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
   grid-gap: 10px;
   justify-items: center;
 
+}
+.related--items::-webkit-scrollbar{
+  display: none;
 }
 
 .related--items>div {
@@ -1123,6 +1204,7 @@ small {
 
 .related--items>div>img {
   width: 100%;
+  height: 200px;
 }
 
 .related--card {
@@ -1200,8 +1282,8 @@ small {
   padding: 30px;
   background: #fff;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  grid-gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 0.5fr));
+  grid-gap: 10px;
   justify-items: center;
   overflow-y: scroll;
   min-height: 30px;
@@ -1209,7 +1291,6 @@ small {
 
 .collection--card {
   width: 195px;
-  height: 400px;
   border-radius: 10px;
   overflow: hidden;
   border: 1px solid #777;
@@ -1218,6 +1299,7 @@ small {
 
 .collection--card img {
   width: 100%;
+  height: 239px;
 }
 
 .collection--card h3 {
@@ -1230,6 +1312,7 @@ small {
   text-align: center;
   font-size: 18px;
   font-weight: 500;
+  margin: 0;
 }
 
 .collection--desc {
@@ -1274,13 +1357,29 @@ small {
 
 .wallet--sect {
   width: 100%;
-  min-height: 50vh;
+  min-height: 100vh;
   color: #fff;
   padding: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+}
+
+.wallet--login{
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  margin: 0 ;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  border-radius: 10px;
+  color: #000;
+  padding: 30px 0;
 }
 
 .connect--wallet {
@@ -1417,10 +1516,17 @@ small {
 /* admin sectin */
 .admin-panel {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 10px;
   justify-items: center;
-  padding: 200px 0;
+  padding: 100px 10px 200px;
+}
+
+.admin-info-tab{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  color: #fff;
 }
 
 .admin-panel-card {
@@ -1454,12 +1560,19 @@ small {
 }
 
 .table--row:hover .row--hover {
-  height: 45px;
+  height: 100%;
   padding: 10px 20px;
 }
 
 .adminusers--section {
   padding: 10px 40px;
+  position: relative;
+  max-height: 100vh;
+  overflow-y: scroll;
+}
+
+.adminusers--section::-webkit-scrollbar{
+  display: none;
 }
 
 .adminusers--section div {
@@ -1490,6 +1603,7 @@ small {
 .explore--page {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  justify-items: center;
   grid-gap: 30px;
   padding: 40px;
 }
@@ -1534,6 +1648,10 @@ small {
   padding: 10px;
 }
 
+.cart--table tbody tr td img{
+  width: 200px;
+  height: 200px;
+}
 
 .cart--table tbody {
   padding: 10px 5px;
@@ -1547,6 +1665,11 @@ small {
 .cart--item--details {
   width: 100%;
   padding: 30px 0;
+}
+
+.cart--table tbody a {
+  width: 100%;
+  display: flex;
 }
 .cart--subtotal {
   display: flex;
@@ -1583,14 +1706,23 @@ small {
 .buy--tab{
   width: 100%;
   height: 0;
-  overflow: hidden;
+  overflow-y: scroll;
   position: absolute;
   top: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.2);
   color: #000;
+  z-index: 120;
 }
 
+
+.buy--tab--quantity{
+  width: 70px;
+  padding: 5px;
+  outline: none;
+  border: 1px solid #777;
+  border-radius: 10px;
+}
 .buy--tab.active{
   padding: 50px;
   height: 100vh;
@@ -1634,6 +1766,819 @@ small {
   cursor: pointer;
 }
 
+.checkout{
+  width: 100%;
+  position: relative;
+  top :-130px;
+  left: 0;
+  z-index: 12;
+}
+
+.check--out--card{
+  width: 100%;
+  height: 200px;
+  border: 1px solid #777;
+  border-radius: 10px; 
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+
+.check--out--card img{
+  flex-basis: 50%;
+  width: 100%;
+}
+.loading--screen{
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 120;
+  background: rgba(0, 0, 0, 1);
+}
+
 .buy--btn:active{
   background : #050561
+}
+
+.transaction-failed{
+  display:  flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+/* explore page */
+
+
+.explore--page{
+  width: 100%;
+  padding: 30px;
+}
+
+/* .admin sections */
+
+.admin--user--page{
+  width: 100%;
+  min-height: 400px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.admin--user--page img{
+  width: 250px;
+  height: 250px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.admin--card--user--details{
+  color: #fff;
+}
+.admin--card--user--details h1{
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+.admin--card--user--details p {
+  margin: 5px 0;
+}
+
+/* admin-asset */
+.admin-asset{
+  position: relative;
+
+}
+
+.admin--assets{
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 20;
+}
+/* login form */
+/* .email--login{
+  width: 70%;
+} */
+
+.directtoauth{
+  margin: 10px 0;
+  display: block;
+  cursor: pointer;
+
+}
+.directtoauth:hover{
+  text-decoration: underline;
+}
+.action--message{
+  display: block;
+  background: #fff;
+  color: #000;
+  border-radius: 5px;
+  width: 80%;
+  margin: 10px  auto;
+  text-align: center;
+  padding: 10px;
+
+}
+/* ------------add responsive----------  */
+
+@media screen and (max-width : 375px) {
+  ::-webkit-scrollbar{
+    display: none;
+  }
+  .greet--tab{
+    flex-direction: column;
+    padding: 10px 10px;
+    align-items: flex-start;
+  }
+  .main--display{
+    width: 100%;
+    max-width: 375px;
+  }
+  
+  .slider-container{
+    width: 100%;
+  }
+  .broker-navbar{
+    position: relative;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 375px;
+    padding: 5px 3px;
+  }
+  .broker-navbar>a{
+    float: right;
+    
+  }
+  .web-logo.nav a{
+    width: 100px;
+  }
+
+  .web-logo.nav h1{
+    /* display: none; */
+    font-size: 13px;
+    font-weight: 200;
+  }
+  .desc-btn{
+    display: flex;
+  
+  }
+  .opening-desc{
+    margin-top: 30px;
+    font-size: 14px;
+  }
+  .opening-desc h2{
+    font-size: 14px;
+  }
+  .connect--title--text{
+    display: none;
+    overflow: hidden;
+    font-size: 13px;
+  }
+  .web-logo.nav img {
+    width: 40px;
+    height: 40px;
+  }
+  .web-logo.nav a{
+    /* width: 71px; */
+    flex-grow: 1;
+  }
+  .connect-wallet{
+    /* flex-basis: 30%; */
+    padding: 5px;
+  }
+  .nav--form{
+    /* flex-grow: 1; */
+    position: absolute;
+    top: 100%;
+    display: none;
+    
+  }
+  .broker--footer{
+    width: 100%;
+    flex-direction: column;
+    padding: 20px 0 ;
+  }
+  .footer--container {
+   
+    display: flex;
+    flex-direction: column;
+}
+
+.title{
+  margin: 15px 0;
+
+}
+.tut--sect{
+  padding: 10px 20px;
+}
+.nav-dropdown{
+  width: 200px;
+  left: -50px;
+  margin-top: 5px;
+}
+
+.nft--tabs{
+  padding: 0 20px;
+}
+.about-tab{
+  padding: 0 20px;
+}
+  .balance{
+    font-size: 14px;
+    /* flex-grow: 1; */
+  }
+  .balance span {
+    display: none;
+  }
+  .footer--container{
+    padding: 0 20px;
+  }
+  .footer--row--1,
+  .footer--row--2,
+  .footer--row--3,
+  .footer--row--4{
+    padding: 0;
+    margin: 20px 0;
+  }
+  .footer--copyright{
+    padding-bottom: 0;
+  }
+  .web-logo img{ 
+    width: 60px;
+    height: 60px;
+  }
+  .web-logo h1{
+    font-size: 18px;
+  }
+  .collection-settings{
+    margin: 10px;
+  }
+  .tab--select{
+    flex-grow: 1;
+  }
+  .explore--page{
+    justify-items: center;
+  }
+  .item-details{
+    flex-direction: column;
+  }
+  .buy--tab{
+    overflow-y: scroll;
+    flex-direction: column;
+  }
+  .buy-details{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    
+  }
+  .wallet--sect{
+    flex-grow: 1;
+  }
+  .login--btn{
+    width: 100%;
+    padding: 5px;
+    font-size: 14px;
+  }
+  .wallet--login{
+    width: 100%;
+  }
+  .create-nft-form form h1 {
+    font-size: 20px;
+    text-align: center;
+    font-weight: 500;
+}
+.cart--item--details.admin-asset{
+  padding-bottom: 5px;
+}
+.cart--item--details.admin-asset td{
+  padding: 0;
+}
+.create-nft-form {
+  width: 90%;
+}
+.create-nft{
+  padding: 0 5px;
+}
+.data--table{
+  width: 100%;
+  
+}
+.adminusers--section{
+  width: 100%;
+}
+.related--card img{
+ 
+}
+.adminusers--section{
+  padding: 10px 10px;
+}
+.faq--card--sect{
+  padding: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+.help-sidebar{
+  position: absolute;
+  background: #282c34;
+  display: none;
+}
+.help--article{
+  padding: 10px 20px;
+}
+.help--title-1{
+  color: #fff;
+}
+
+.whatisanftt--img{
+  padding: 0;
+}
+.buy--tab.active{
+  padding: 20px;
+}
+.buy-details{
+  display: flex;
+  flex-direction: column;
+  /* grid-gap: 20px; */
+  padding: 10px;
+}
+.pay--now{
+  display: flex;
+  flex-direction: column;
+}
+
+.buy--item--adjust{
+  display: flex;
+  flex-direction: column;
+}
+.buy--item--adjust img{
+  width: 100%;
+}
+}
+
+@media screen and (max-width : 520px) {
+  ::-webkit-scrollbar{
+    display: none;
+  }
+  .greet--tab{
+    flex-direction: column;
+    padding: 10px 10px;
+    align-items: flex-start;
+  }
+  .main--display{
+    width: 100%;
+    max-width:520px;
+  }
+  
+  .slider-container{
+    width: 100%;
+  }
+  .broker-navbar{
+    position: relative;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 520px;
+    padding: 5px 3px;
+  }
+  .broker-navbar>a{
+    float: right;
+    
+  }
+  .web-logo.nav a{
+    width: 100px;
+  }
+
+  .web-logo.nav h1{
+    /* display: none; */
+    font-size: 13px;
+    font-weight: 200;
+  }
+  .desc-btn{
+    display: flex;
+  
+  }
+  .opening-desc{
+    margin-top: 30px;
+    font-size: 14px;
+  }
+  .opening-desc h2{
+    font-size: 14px;
+  }
+  .connect--title--text{
+    display: none;
+    overflow: hidden;
+    font-size: 13px;
+  }
+  .web-logo.nav img {
+    width: 40px;
+    height: 40px;
+  }
+  .web-logo.nav a{
+    /* width: 71px; */
+    flex-grow: 1;
+  }
+  .connect-wallet{
+    /* flex-basis: 30%; */
+    padding: 5px;
+  }
+  .nav--form{
+    /* flex-grow: 1; */
+    position: absolute;
+    top: 100%;
+    display: none;
+    
+  }
+  .broker--footer{
+    width: 100%;
+    flex-direction: column;
+    padding: 20px 0 ;
+  }
+  .footer--container {
+    padding-left:20px ;
+    padding-right:20px ;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    justify-items: center;
+    flex-direction: column;
+    grid-gap: 20px;
+}
+.footer--row--1,
+  .footer--row--2,
+  .footer--row--3,
+  .footer--row--4{
+    padding: 0;
+    margin: 20px 0;
+    width: 100%;
+  }
+  .footer--copyright{
+    padding-bottom: 0;
+  }
+  .web-logo img{ 
+    width: 60px;
+    height: 60px;
+  }
+  .web-logo h1{
+    font-size: 18px;
+  }
+  .collection-settings{
+    margin: 10px;
+  }
+  .tab--select{
+    flex-grow: 1;
+  }
+  .explore--page{
+    justify-items: center;
+  }
+  .item-details{
+    flex-direction: column;
+  }
+  .buy--tab{
+    overflow-y: scroll;
+    flex-direction: column;
+  }
+  .buy-details{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    
+  }
+  .wallet--sect{
+    flex-grow: 1;
+  }
+  .login--btn{
+    width: 100%;
+    padding: 5px;
+    font-size: 14px;
+  }
+  .wallet--login{
+    width: 100%;
+  }
+  .create-nft-form form h1 {
+    font-size: 20px;
+    text-align: center;
+    font-weight: 500;
+}
+.cart--item--details.admin-asset{
+  padding-bottom: 5px;
+}
+.cart--item--details.admin-asset td{
+  padding: 0;
+}
+.create-nft-form {
+  width: 90%;
+}
+.create-nft{
+  padding: 0 5px;
+}
+.data--table{
+  width: 100%;
+  
+}
+.adminusers--section{
+  width: 100%;
+}
+.related--card{
+ 
+}
+.adminusers--section{
+  padding: 10px 10px;
+}
+.faq--card--sect{
+  padding: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+.help-sidebar{
+  position: absolute;
+  background: #282c34;
+  display: none;
+}
+.help--article{
+  padding: 10px 20px;
+}
+.help--title-1{
+  color: #fff;
+}
+
+.whatisanftt--img{
+  padding: 0;
+}
+.buy--tab.active{
+  padding: 20px;
+}
+.buy-details{
+  display: flex;
+  flex-direction: column;
+  /* grid-gap: 20px; */
+  padding: 10px;
+}
+.pay--now{
+  display: flex;
+  flex-direction: column;
+}
+
+.buy--item--adjust{
+  display: flex;
+  flex-direction: column;
+}
+.buy--item--adjust img{
+  width: 100%;
+}
+.web-logo.nav a{
+  width: 100%;
+}
+.nav-dropdown{
+  width: 200px;
+  margin-top: 5px;
+}
+.main--display{
+  margin-bottom: 20px;
+}
+
+}
+
+@media screen and (max-width : 775px)  {
+
+   ::-webkit-scrollbar{
+    display: none;
+  }
+  .greet--tab{
+    flex-direction: column;
+    padding: 10px 10px;
+    align-items: flex-start;
+  }
+  .main--display{
+    width: 100%;
+    max-width:775px;
+  }
+  
+  .slider-container{
+    width: 100%;
+  }
+  .broker-navbar{
+    position: relative;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 775px;
+    padding: 5px 3px;
+  }
+  .broker-navbar>a{
+    float: right;
+    
+  }
+  .web-logo.nav a{
+    width: 100px;
+  }
+
+  .web-logo.nav h1{
+    /* display: none; */
+    font-size: 17px;
+    font-weight: 200;
+  }
+  .desc-btn{
+    display: flex;
+  
+  }
+  .opening-desc{
+    margin-top: 30px;
+    font-size: 14px;
+  }
+  .opening-desc h2{
+    font-size: 14px;
+  }
+  .connect--title--text{
+    display: none;
+    overflow: hidden;
+    font-size: 13px;
+  }
+  .web-logo.nav img {
+    width: 60px;
+    height: 60px;
+  }
+  .web-logo.nav a{
+    /* width: 71px; */
+    flex-grow: 1;
+  }
+  .connect-wallet{
+    /* flex-basis: 30%; */
+    padding: 5px;
+  }
+  .nav--form{
+    /* flex-grow: 1; */
+    position: absolute;
+    top: 100%;
+    display: none;
+    
+  }
+  .broker--footer{
+    width: 100%;
+    flex-direction: column;
+    padding: 20px 0 ;
+  }
+  .footer--container {
+    padding-left:20px ;
+    padding-right:20px ;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    justify-items: center;
+    flex-direction: column;
+    grid-gap: 20px;
+}
+.footer--row--1,
+  .footer--row--2,
+  .footer--row--3,
+  .footer--row--4{
+    padding: 0;
+    margin: 20px 0;
+    width: 100%;
+  }
+  .footer--copyright{
+    padding-bottom: 0;
+  }
+  .web-logo img{ 
+    width: 60px;
+    height: 60px;
+  }
+  .web-logo h1{
+    font-size: 18px;
+  }
+  .collection-settings{
+    margin: 10px;
+  }
+  .tab--select{
+    flex-grow: 1;
+  }
+  .explore--page{
+    justify-items: center;
+  }
+  .item-details{
+  }
+  .buy--tab{
+    overflow-y: scroll;
+    flex-direction: column;
+  }
+  .buy-details{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    
+  }
+  .related--items {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 10px;
+    padding: 20px 30px;
+    border: 1px solid #777;
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+    grid-gap: 10px;
+    justify-items: center;
+}
+  .wallet--sect{
+    flex-grow: 1;
+  }
+  .login--btn{
+    width: 100%;
+    padding: 5px;
+    font-size: 14px;
+  }
+  .wallet--login{
+    width: 100%;
+  }
+  .connect--title--text{
+    
+    overflow: hidden;
+    font-size: 13px;
+  }
+  .create-nft-form form h1 {
+    font-size: 20px;
+    text-align: center;
+    font-weight: 500;
+}
+.cart--item--details.admin-asset{
+  padding-bottom: 5px;
+}
+.cart--item--details.admin-asset td{
+  padding: 0;
+}
+.create-nft-form {
+  width: 90%;
+}
+.create-nft{
+  padding: 0 5px;
+}
+.data--table{
+  width: 100%;
+  
+}
+.adminusers--section{
+  width: 100%;
+}
+
+.adminusers--section{
+  padding: 10px 10px;
+}
+.faq--card--sect{
+  padding: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+.help-sidebar{
+  position: absolute;
+  background: #282c34;
+  display: none;
+}
+.help--article{
+  padding: 10px 20px;
+}
+.help--title-1{
+  color: #fff;
+}
+
+.whatisanftt--img{
+  padding: 0;
+}
+.buy--tab.active{
+  padding: 20px;
+}
+.buy-details{
+  display: flex;
+  flex-direction: column;
+  /* grid-gap: 20px; */
+  padding: 10px;
+}
+.pay--now{
+  display: flex;
+  flex-direction: column;
+}
+
+.buy--item--adjust{
+  display: flex;
+  flex-direction: column;
+}
+.buy--item--adjust img{
+  width: 100%;
+}
+.web-logo.nav a{
+  width: 100%;
+}
+.nav-dropdown{
+  width: 200px;
+  margin-top: 5px;
+}
+.main--display{
+  margin-bottom: 20px;
+}
+
 }

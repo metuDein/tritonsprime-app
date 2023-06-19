@@ -7,7 +7,7 @@ const UserArea = () => {
   const location = useLocation()
   const { auth } = useAuth()
   return (
-    auth?.accessToken ? 
+    auth?.user ?  
     <Outlet />
     :  <Navigate to={'/walletlogin'} state={{from : location}} replace/>
     
