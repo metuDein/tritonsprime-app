@@ -49,11 +49,23 @@ const ItemPage = () => {
     }, [buyItemQuantity])
 
     useEffect(() => {
-        const appData = localStorage.getItem('appAssets');
+        const findAsset = async() => {
+            try {
 
-        if(!appData) return console.log('no app assets');
-        
-        asset = appData.find(asset => asset._id === id);
+                setIsLoading(true)
+                const appData = localStorage.getItem('appAssets');
+                if(!appData) return console.log('no app assets');
+                asset = appData.find(asset => asset._id === id);
+            } catch (error) {
+                console.log(error);
+            }finally{
+                setTimeout(() => {
+                    setIsLoading(false)
+                }, 3000);
+        }
+           
+        }
+        findAsset();
 
     }, [])
 
