@@ -58,9 +58,18 @@ export const DataProvider = ({ children }) => {
   const toggleBuyTab = () => {setBuyTab(old => !old)}
 
 
+  use(() => {
+    setIsLoading(true);
+
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 6000);
+  }, [])
+
+
 
 useEffect(() => {
-  setIsLoading(true)
+  
   const getAllUsers = async() => {
     try {
       const response = await axios.get('/getallusers');
@@ -128,7 +137,7 @@ useEffect(() => {
   getTrendData()
   getAllMessage();
   getAllUsers();
-  setIsLoading(false)
+ 
 
 }, [])
 
