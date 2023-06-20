@@ -77,7 +77,7 @@ const AdminCreateAsset = () => {
             try {
                 const response =  await axios.post('/adminassets', JSON.stringify({assetName : nftName, assetImage : nftImage, assignTo : owner, assetQuantity : supply, assetPrice : price,  assetNetwork : blockChain, description : description, assetCategory : Category }), {
                     headers : {
-                        "Content-Length" : 'application/json',
+                        "Content-Type" : 'application/json',
                     },
                     withCredentials : true
                 })
