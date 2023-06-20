@@ -1086,6 +1086,7 @@ select option:checked {
   width: 100%;
   padding: 10px 30px;
   position: relative;
+  min-height: 100vh;
 }
 
 .item-details {
