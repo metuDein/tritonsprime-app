@@ -214,14 +214,14 @@ const ItemPage = () => {
                     <div>
                         <h3>Description</h3>
                         <p>
-                            <h4>{asset.name}  {assetOwner.verified && <FaCheckCircle style={{ color: '#547dc4', marginLeft: '2px', marginTop: '2px', fontSize: '13px', background: '#fff', borderRadius: '50%' }} />}</h4>
+                            <h4>{asset.name}  {assetOwner?.verified && <FaCheckCircle style={{ color: '#547dc4', marginLeft: '2px', marginTop: '2px', fontSize: '13px', background: '#fff', borderRadius: '50%' }} />}</h4>
                             {asset.description !== "" && asset.description}
                             {asset.description === "" && `Owned by ${asset.name}`}
                         </p>
                     </div>
                 </div>
                 <div className='item-details-row-2'>
-                    <h3 className='company--title'>#{asset.name} {assetOwner.verified && <FaCheckCircle style={{ color: '#547dc4', marginLeft: '2px', marginTop: '2px', fontSize: '13px', background: '#fff', borderRadius: '50%' }} />}</h3>
+                    <h3 className='company--title'>#{asset.name} {assetOwner?.verified && <FaCheckCircle style={{ color: '#547dc4', marginLeft: '2px', marginTop: '2px', fontSize: '13px', background: '#fff', borderRadius: '50%' }} />}</h3>
                     <h1 className='name--title'>#{asset.categories} </h1>
                     <div>
                         <small>current price</small>
