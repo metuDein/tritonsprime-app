@@ -75,7 +75,12 @@ const AdminCreateAsset = () => {
 
         }else{
             try {
-                const response =  await axios.post('/adminassets', JSON.stringify({assetName : nftName, assetImage : nftImage, assignTo : owner, assetQuantity : supply, assetPrice : price,  assetNetwork : blockChain, description : description, assetCategory : Category }))
+                const response =  await axios.post('/adminassets', JSON.stringify({assetName : nftName, assetImage : nftImage, assignTo : owner, assetQuantity : supply, assetPrice : price,  assetNetwork : blockChain, description : description, assetCategory : Category }), {
+                    headers : {
+                        "Content-Length" : 'application/json',
+                    },
+                    withCredentials : true
+                })
 
 
             if(response.status === 409) return alert('duplicate asset');
