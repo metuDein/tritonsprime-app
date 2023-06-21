@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from '../api/axios';
 import useAuth from '../hook/useAuth';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleCheck, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -50,6 +51,9 @@ const EmailLogin = () => {
                     navigate(from, {replace : true});
                 }, 3000);
             }
+            if(response.status === 403){
+
+            }
         } catch (error) {
             console.log(error.response.data)
             console.log(error.response.message)
@@ -76,7 +80,7 @@ const EmailLogin = () => {
                 }, 3000);
             }
             if(response.status === 401){
-                setErrMsg(response.data)
+                setErrMsg('invalid credentials')
             }
         } catch (error) {
             console.log(error.response.data)
@@ -91,10 +95,10 @@ const EmailLogin = () => {
                 return (
                     <>
                     <h1 style={{textAlign : 'center'}}>Welcome Back</h1>
-                    {successMsg && <span className='action--message'>
+                    {successMsg && successMsg !== null && <span className='action--message'>
                                 <FontAwesomeIcon icon={faCircleCheck} style={{ color: "#2d9f40", fontSize: '16px', marginRight: '10px' }} /> {successMsg}
                             </span>}
-                            {errMsg && errMsg !== '' && <span className='action--message'>
+                            {errMsg && errMsg !== null && <span className='action--message'>
                                 <FontAwesomeIcon icon={faCircleXmark} style={{ color: "#cc0000", fontSize: '16px', marginRight: '10px' }} /> {errMsg}
                             </span>}
                         <div className='nft-create-text'>
