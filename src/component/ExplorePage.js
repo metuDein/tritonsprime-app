@@ -7,7 +7,7 @@ import ExploreCard from './ExploreCard';
 
 const ExplorePage = () => {
 
-  const {allAssets} = useContext(DataContext)
+  const {allAssets, searchResult} = useContext(DataContext)
 
   // const [allAssets, setAllAssets] = useState([]);
   const [allCollections, setAllCollections] = useState([]);
@@ -26,9 +26,7 @@ const ExplorePage = () => {
   return (
     <section className='explore--page'>
 
-      <ExploreCard displayData={allAssets}/>
-
-             
+      <ExploreCard displayData={searchResult}/>
               
     </section>
   )

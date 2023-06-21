@@ -16,12 +16,15 @@ const ExploreCard = ({displayData}) => {
     const {getImgUrl, addToCart, cartItemQuantity, setCartItemQuantity} = useContext(DataContext);
     const {auth} = useAuth()
 
-    const {user} = auth
+
 
     const handleCartWork = (id, userAddress, quantity, price, image, name, username) => {
 
 
-        if(!user.contractAddress) return navigate('/walletlogin')
+        if(!auth?.user) return navigate('/walletlogin')
+
+        console.log(id, userAddress, quantity, price, image, name, username);
+
         addToCart(id, userAddress, quantity, price, image, name, username)
     }
     
@@ -29,8 +32,8 @@ const ExploreCard = ({displayData}) => {
 
     const assets = (
         displayData.slice().reverse().map((item, index) => (
-            <article className='collection--card' style={{color : '#fff', background : '#fff'}} >
-                <Link to={`/itempage/${item._id}`} key={index} style={{color : '#000', textDecoration : 'none'}}>
+            <article className='collection--card'  key={index} style={{color : '#fff', background : '#fff'}} >
+                <Link to={`/itempage/${item._id}`} style={{color : '#000', textDecoration : 'none'}}>
                         <img src={getImgUrl(item.image)} alt="nft card img" />
                         <h2>{`${item.name}`}</h2>
                         <div className='collection--desc'>
@@ -42,7 +45,7 @@ const ExploreCard = ({displayData}) => {
                             
                             <button> <Link to={`/itempage/${item._id}`}> Buy Now</Link></button> 
                             <span>
-                                <FontAwesomeIcon onClick={() => addToCart(item._id, user?.contractAddress, cartItemQuantity, item.price, item.image, item.name, item?.OwnerName)} icon={faCartPlus} />
+                                <FontAwesomeIcon onClick={() => handleCartWork(item._id, auth?.user?.contractAddress, cartItemQuantity, item.price, item.image, item.name, auth?.user?.userName)} icon={faCartPlus} />
                             </span>
                         </div>
                     </article>

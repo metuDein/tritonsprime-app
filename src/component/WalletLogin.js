@@ -209,11 +209,11 @@ const WalletLogin = () => {
                     <span> Connect Your Wallet</span>
                     <FontAwesomeIcon icon={faWallet} />
                 </button>
-                <h1 style={{textAlign : 'center'}}> OR </h1>
+                {/* <h1 style={{textAlign : 'center'}}> OR </h1>
                 <button className='login--btn' onClick={() => navigate('/auth')}>
                     <span> Login with Email</span>
                     <FontAwesomeIcon icon={faMessage} />
-                </button>
+                </button> */}
 
                 {
                     getKey &&

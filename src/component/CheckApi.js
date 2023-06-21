@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from '../api/axios';
 import NftCard from "./NftCard";
 import Slider from "./Slider";
 import AnimateTab from "./AnimateTab";
+import DataContext from "../context/DataContext";
 
 const CheckApi = ({bannerData}) => {
 
  
-  const url = 'homepagedata'
+  const {allAssets} = useContext(DataContext);
+  const url = 'homepagedata';
   const [data, setData] = useState([]);
 
 
@@ -29,7 +31,7 @@ const CheckApi = ({bannerData}) => {
 
 
   return (
-      <NftCard data={data} />
+      <NftCard data={allAssets} />
    
   )
 }

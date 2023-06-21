@@ -8,9 +8,9 @@ const Faq = () => {
             <ul className='sidebar-tabs'>
                     <li><Link to={'/support-request'} style={{ background : "#fff", borderRadius : '10px', color : '#000', width : '100%', padding : '10px', textDecoration : 'none'}}> Contact  Us</Link></li>
                     <li> <Link style={{color : '#fff', padding : '10px 0'}}> Whats is an Nft </Link></li>
-                    <li> <Link style={{color : '#fff'}}> How to Create an NFT </Link></li>
-                    <li> <Link style={{color : '#fff'}}> how to Buy an NFT</Link> </li>
-                    <li> <Link style={{color : '#fff'}}> Who is TritonsPrime?</Link></li>
+                    <li> <Link to={'/faq-how-to-create-an-nft'} style={{ color: '#fff' }}> How to Create an NFT </Link></li>
+                    <li> <Link to={'/faq-how-to-buy-an-nft'} style={{ color: '#fff' }}> how to Buy an NFT</Link> </li>
+                    <li> <Link to={'/faq-who-is-tritonsprime'} style={{color : '#fff'}}> Who is TritonsPrime?</Link></li>
                 </ul>
             </div>
             <div className='help--article'>

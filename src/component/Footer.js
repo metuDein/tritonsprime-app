@@ -33,7 +33,7 @@ const Footer = () => {
             <div className='footer--container'>
                 <div className='footer--row--1'>
                     <div className='web-logo'>
-                    <Link to={'/faq'} style={{color : `${darkmode ? '#000' : '#fff'}`, display: 'flex', width : '100%', textDecoration : 'none' ,alignItems:'center', justifyContent :'space-between' }}>
+                    <Link to={'/'} style={{color : `${darkmode ? '#000' : '#fff'}`, display: 'flex', width : '100%', textDecoration : 'none' ,alignItems:'center', justifyContent :'space-between' }}>
                     <img src={'images/finallogo.png'} className='weblogo--img'/>
                     <h1>TritonsPrime</h1>
                     </Link>
@@ -46,7 +46,7 @@ const Footer = () => {
                     <h3>My Account</h3>
                     <ul>
                         <li><Link to={'/user-create'} style={{color : `${darkmode ? '#000' : '#fff'}`, textDecoration : 'none'}}>Create Item</Link></li>
-                        <li><Link to={'/faq'} style={{color : `${darkmode ? '#000' : '#fff'}`, textDecoration : 'none'}}>Collection </Link></li>
+                        <li><Link to={'/explore'} style={{color : `${darkmode ? '#000' : '#fff'}`, textDecoration : 'none'}}>Explore </Link></li>
                         <li><Link to={'/faq'} style={{color : `${darkmode ? '#000' : '#fff'}`, textDecoration : 'none'}}>Profile</Link></li>
                     </ul>
                 </div>

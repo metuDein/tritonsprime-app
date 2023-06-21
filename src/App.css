@@ -306,6 +306,9 @@ a{
 }
 
 .broker-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   display: flex;
   align-items: center;
@@ -417,7 +420,7 @@ a{
 
 .nav-dropdown.active {
   padding: 10px;
-  height: 350px;
+  height: auto;
 }
 .media--balance{
   display: none;
@@ -525,7 +528,7 @@ a{
   width: 100%;
   display: grid;
   grid-gap: 20px;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: 1fr 1fr 1fr;
   padding: 20px 50px;
   
 }
@@ -674,8 +677,10 @@ a{
 /* help page */
 .main--display {
   overflow-y: scroll;
+  margin-top: 40px;
   width: 100%;
-  max-height: 100vh;
+  min-height: 90vh;
+  /* max-height: 100vh; */
   padding: 0 0 20px;
   position: relative;
   margin-bottom: 40px;
@@ -688,6 +693,7 @@ a{
 
 .help--page {
   display: flex;
+  height: 100%;
 }
 
 .help-sidebar {
@@ -770,10 +776,25 @@ a{
   text-align: left;
 }
 
+.explain--nft-uses a{
+  width: 200px;
+  height: 200px;
+}
+.explain--nft-uses a img{
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+}
+.explain--nft-uses>img{
+  width: 500px;
+  object-fit: contain;
+
+}
+
 .explain--nft-uses p {
   font-size: 14px;
   margin: 15px 0;
-  font-weight: 200;
+  font-weight: 400;
 }
 
 .explain--nft-uses h3 {
@@ -1292,6 +1313,7 @@ small {
 
 .collection--card {
   width: 195px;
+  height: 350px;
   border-radius: 10px;
   overflow: hidden;
   border: 1px solid #777;
@@ -1664,6 +1686,7 @@ small {
 }
 
 .cart--item--details {
+  position: relative;
   width: 100%;
   padding: 30px 0;
 }
@@ -1821,6 +1844,7 @@ small {
 .explore--page{
   width: 100%;
   padding: 30px;
+  min-height: 100vh;
 }
 
 /* .admin sections */
@@ -1913,7 +1937,9 @@ small {
     width: 100%;
   }
   .broker-navbar{
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
     justify-content: space-between;
     width: 100%;
     max-width: 375px;
@@ -1995,6 +2021,8 @@ small {
   padding: 0 20px;
 }
 .about-tab{
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
   padding: 0 20px;
 }
   .balance{
@@ -2142,12 +2170,16 @@ small {
     width: 100%;
     max-width:520px;
   }
+  .about-tab{
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   
+    padding: 0 20px;
+  }
   .slider-container{
     width: 100%;
   }
   .broker-navbar{
-    position: relative;
+    position: fixed;
     justify-content: space-between;
     width: 100%;
     max-width: 520px;
@@ -2363,12 +2395,17 @@ small {
     width: 100%;
     max-width:775px;
   }
+  .about-tab{
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  
+    padding: 0 20px;
+  }
   
   .slider-container{
     width: 100%;
   }
   .broker-navbar{
-    position: relative;
+    position: fixed;
     justify-content: space-between;
     width: 100%;
     max-width: 775px;

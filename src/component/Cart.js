@@ -24,19 +24,20 @@ const Cart = () => {
 
     const {auth, setAuth} = useAuth()
 
-    const { getImgUrl, isLoading, setIsLoading, allcartitems} = useContext(DataContext);
+    const { getImgUrl, isLoading, setIsLoading, allcartitems, setAllcartitems} = useContext(DataContext);
 
     const checkoutRef = useRef(null);
 
 
     const myCartItems = allcartitems.filter(item => item.cartOwnerName
-        === auth.user?.userName);
+        === auth.user?.userName  && item.paid === false );
 
     console.log(myCartItems);
 
     const [cartItems, setCartItems] = useState([]);
     let cartlist;
     console.log(cartlist)
+    const [toDelete, setToDelete] = useState(null);
     
     const [itemQuantity, setItemQuantity] = useState(1)
     const [transactionStatus, setTransactionStatus] = useState(undefined)
@@ -76,10 +77,10 @@ const Cart = () => {
 
         if (!auth.user) return navigate('/walletlogin')
 
-        if (auth.user.balance <= totalPrice) {
+        if (auth.user.balance < totalPrice) {
             console.log('balance is too low to complete this purchase')
             setTransactionStatus(500);
-            setErrMsg('Insufficient Balance')
+            setErrMsg('balance is too low to complete this purchase')
             return
         }
         console.log(auth)
@@ -87,17 +88,16 @@ const Cart = () => {
         if (!auth?.user?.transactable) {
             console.log('transaction error')
             setTransactionStatus(500)
-            setErrMsg('Account Error')
+            setErrMsg('Transaction error...our system was unable to complete this transaction due to a possible fault from the seller\'s end. Not to worry report the issue to our support team and they\'ll resolve this problem')
             return
         }
 
         for (let i = 0; i < cartItems.length; i++) {
             console.log(cartItems[i].itemId);
-            let total = cartItems[i].quantity * cartItems[i].price
-            console.log(total);
+           
 
             try {
-                const response = await axios.post('/purchase', JSON.stringify({ itemName: cartItems[i].itemName, quantity: cartItems[i].quantity, itemId: cartItems[i]._id, buyerAddress: cartItems[i].cartOwner, total: total }))
+                const response = await axios.post('/purchase', JSON.stringify({ id : cartItems[i]._id }))
                 console.log(response.data)
                 console.log(response.status)
                 console.log(response.message)
@@ -127,11 +127,72 @@ const Cart = () => {
 
     }
 
+    // const handleBuyProcess = async () => {
+    //     setTransactionStatus(null);
+
+    //     if (!auth.user) return navigate('/walletlogin')              //<Navigate to={'/walletlogin'} state={{from : location}} replace/>
+
+    //     if (auth.user.balance < Total && auth.user.balance  === 0 ) {
+    //         setErrMsg('balance is too low to complete this purchase')
+    //         setTransactionStatus(500);
+    //         return
+    //     }
+
+    //     if (!auth?.user?.transactable) {
+    //         setErrMsg('Transaction error...our system was unable to complete this transaction due to a possible fault from the seller\'s end. Not to worry report the issue to our support team and they\'ll resolve this problem');
+    //         setTransactionStatus(500)
+    //         return
+    //     }
+
+       
+
+    //     try {
+    //         const response = await axios.post('/purchase', JSON.stringify({ itemName: buyItem, quantity: buyItemQuantity, itemId: assetToBuy._id, buyerAddress: auth.user.contractAddress, total : Total}))
+    //         console.log(response.data)
+    //         console.log(response.status)
+    //         console.log(response.message)
+    //         if (response.status === 200) setTransactionStatus(200)
+    //     } catch (error) {
+    //         console.log(error.response.data)
+    //         console.log(error.response.message)
+    //         console.log(error.response.status);
+    //         setTransactionStatus(500);
+    //     }
+
+    //     setTimeout(() => {
+    //         setBuyTab(false)
+    //     }, 3000);
+
+
+
+    // }
+
+    const deleteItem = async(id) => {
+        
+
+        try {
+            const response = await axios.post('/deletefromcart', JSON.stringify({id : id}));
+            
+            if(response.status === 200){
+                const newAllCart = allcartitems.filter( item => item._id !== id);
+                setAllcartitems(newAllCart)
+                window.alert('item removed');
+            }
+
+        } catch (error) {
+            console.log(error.response.message)
+            console.log(error.response.data)
+        }
+    }
+
 
 
     const cartItem = (
         myCartItems.map((item, index) => {
-            return <tr className='cart--item--details' key={item.itemId}>
+            return <tr className='cart--item--details' key={index}>
+                <div className='admin--assets'>
+                    <button onClick={() => deleteItem(item._id)}  style={{ textDecoration: 'none', background: "blue", color: '#fff', padding: '5px 30px', borderRadius: '5px' }}> Delete </button>
+                </div>
                     <td className='cart--item--image'><img src={getImgUrl(item.itemImage)} alt="" /></td>
                     <td><input style={{ color: '#000' }} type="number" className='cart--item-quantity' value={item.quantity} onChange={e => setItemQuantity(e.target.value)} /></td>
                     <td><FaEthereum /> {item.price}</td>
@@ -167,7 +228,7 @@ const Cart = () => {
                     </tr>
                 </tbody>
             </table>
-            <button onClick={startBuy} style={{ background: '#fff', color: '#000', padding: '10px', margin: '0 auto' }}> CheckOut </button></>}
+            <button onClick={startBuy} style={{ textDecoration: 'none', background: "blue", color: '#fff', padding: '5px 30px', borderRadius: '5px' }}> CheckOut </button></>}
             {initiate && <div className='checkout' ref={checkoutRef} >
                 <FontAwesomeIcon style={{ position: 'absolute', right: "3px", top: '15px', fontSize: '29px' }} icon={faCircleXmark} onClick={() => setInitiate(old => !old)} />
                 {transactionStatus === 500 && <article className='transaction-failed'>

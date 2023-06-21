@@ -6,8 +6,10 @@ import Web3 from 'web3'
 import axios from '../api/axios';
 
 import { FaEthereum } from 'react-icons/fa'
+import { Link, useNavigate} from 'react-router-dom';
 
 const UserSettings = () => {
+    const navigate = useNavigate();
     const { auth, setAuth} = useAuth()
 
     const { user } = auth;
@@ -133,7 +135,15 @@ const UserSettings = () => {
 
     }
 
+    const navigateToWithdraw =  (e) => {
+        e.preventDefault()
+       navigate('/withdrawal')
+    }
+    const navigateToDeposit =  (e) => {
+        e.preventDefault()
 
+       navigate('/deposit')
+    }
     return (
         <section className="create-nft">
             <div className='create-nft-form'>
@@ -276,7 +286,7 @@ const UserSettings = () => {
                         <label htmlFor='user-balance' className='nft-create-name'>
                             <span> Current Balance : <FaEthereum /> {userBalance} </span>
                         </label>
-                        <button onClick={e => { e.preventDefault() }} style={{ background: '#777', color: '#fff', outline: 'none', border: '0' }}> Deposit</button>
+                        <button onClick={navigateToDeposit} style={{ background: '#777', color: '#fff', outline: 'none', border: '0' }}> Deposit</button>
                         <button onClick={e => { e.preventDefault() }} style={{ background: '#fff', color: '#000', outline: 'none', border: '0' }}>Withdraw</button>
                     </div>
 

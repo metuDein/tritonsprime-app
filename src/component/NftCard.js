@@ -13,12 +13,25 @@ const NftCard = ({ data }) => {
   const auth = useAuth()
   const {user} = auth
 
-  const { setAddress, setNFTs, getImgUrl, handleCartWork,  addToCart,  cartItemQuantity} = useContext(DataContext);
+  const { setAddress, setNFTs, getImgUrl,  addToCart,  cartItemQuantity} = useContext(DataContext);
 
   const refreshCollectionData = (data) => {
     setAddress(data)
     setNFTs([])
   }
+
+
+  const handleCartWork = (id, userAddress, quantity, price, image, name, username) => {
+
+
+    
+    if(!auth?.user) return window.alert('please login')
+    
+
+    console.log(id, userAddress, quantity, price, image, name, username);
+
+    addToCart(id, userAddress, quantity, price, image, name, username)
+}
 
 
   const getNft = (
@@ -37,7 +50,7 @@ const NftCard = ({ data }) => {
               <div className='collection--purchase--bar'>
                   <button>buy now</button>
                   <span>
-                      <FontAwesomeIcon onClick={() => addToCart(item._id, user?.contractAddress, cartItemQuantity, item.price, item.image, item.name, item?.OwnerName)} icon={faCartPlus} />
+                      <FontAwesomeIcon onClick={() => handleCartWork(item._id, auth?.user?.contractAddress, cartItemQuantity, item.price, item.image, item.name, auth?.user?.userName)} icon={faCartPlus} />
                       {/* (id, userAddress, quantity, price, image, name, username) */}
                   </span>
               </div>

@@ -53,6 +53,7 @@ import PersistLogin from './component/PersistLogin';
 import UserMessages from './component/UserMessages';
 import UserMessage from './component/UserMessage';
 import EmailLogin from './component/EmailLogin';
+import Deposit from './component/Deposit';
 
 
 
@@ -132,6 +133,7 @@ function App() {
                 <Route path='/user-edit-profile' element={<UserSettings />} />
                 <Route path='/user-notifications' element={<UserMessages />} />
                 <Route path='/user-notification/:id' element={<UserMessage />} />
+                <Route path='/deposit' element={<Deposit />} />
                 
               <Route path='/cart' element={<Cart />} />
                 <Route path='/getnftassets' element={<GetNFTbyContract />} />

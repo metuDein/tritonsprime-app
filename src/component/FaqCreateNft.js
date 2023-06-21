@@ -5,18 +5,18 @@ const FaqCreateNft = () => {
     return (
         <main className='help--page'>
             <div className='help-sidebar'>
-                <ul>
-                <li><Link style={{ background : "transparent", color : '#000', width : '100%', padding : '10px', textDecoration : 'none'}}> Contact  Us</Link></li>
-                    <li> <Link> Whats is an Nft </Link></li>
-                    <li> <Link> How to Create an NFT </Link></li>
-                    <li> <Link> how to Buy an NFT</Link> </li>
-                    <li> <Link> Who is TritonsPrime?</Link></li>
+            <ul className='sidebar-tabs'>
+                <li><Link to={'/support-request'} style={{ background : "#fff", borderRadius : '10px', color : '#000', width : '100%', padding : '10px', textDecoration : 'none'}}> Contact  Us</Link></li>
+                    <li> <Link to={'/faq-what-is-an-nft'} style={{color : '#fff', padding : '10px 0'}}> Whats is an Nft </Link></li>
+                   
+                    <li> <Link to={'/faq-how-to-buy-an-nft'} style={{ color: '#fff' }}> how to Buy an NFT</Link> </li>
+                    <li> <Link to={'/faq-who-is-tritonsprime'} style={{color : '#fff'}}> Who is TritonsPrime?</Link></li>
                 </ul>
             </div>
 
             <div className='help--article'>
                 <h1 className='help--title-1'>How to create an NFT</h1>
-                <img src="https://opensea.io/static/images/learn-center//how-to-create-nft.png" alt="" width={'100%'} className='howtobuyanftt--img' />
+                <img src="images/createannftontritons_auto_x2.jpg" height="200px"  style={{ objectFit : 'cover' }}width={'100%'} className='howtobuyanftt--img' />
 
                 <div className='whats--is--nft'>
                     <h2>
@@ -50,8 +50,8 @@ const FaqCreateNft = () => {
                     <img src="" alt="" />
                 </div>
                 <div className='explain--nft-uses'>
-                    <h3>Step 1: You’ll need to create a collection</h3>
-                    <img src="https://assets-global.website-files.com/629a2d4e81096c5488a8a581/6340ba7fca63b3131ddbb57d_OaYcalMUDLbIG4iCJt6wJ9DeKRLpe1ZSitf5USCDFmOuyDfnqiWHb4-Ex63d8OcE6aNPdkdlt4S8DfPW-Vk1q4g1K6Tjzln3H2l6-wUjDTGVYnrwW6kycQBRRdjhyx3UiV6W9UKDCaas_-D7udfQGnXYBHgibz7Ji2HHDCoX4jGe6lIuC8KG39NQBg.png" alt="" />
+                    <h3>Step 1: You’ll need to create an account with tritonsprime an connect your wallet</h3>
+                    <img src="images/howtocreate1_ml_resize_x4.jpg" alt="" />
 
                 </div>
 
@@ -88,9 +88,9 @@ const FaqCreateNft = () => {
                     
                 </div>
                 <div className='explain--nft-uses'>
-                    <h3>How to buy a NFT</h3>
-                    <Link to={'/how-to-create-an-nft'} >
-                        <img src="https://opensea.io/static/images/learn-center//how-to-create-nft.png" alt="" className='next--article' />
+                    <h3>Who is TritonsPrime?</h3>
+                    <Link to={'/faq-who-is-tritonsprime'} >
+                        <img src="images/tprimelogo.png" alt="" className='next--article' />
                     </Link>
                 </div>
 

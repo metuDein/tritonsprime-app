@@ -9,7 +9,7 @@ const DataContext = createContext({});
 
 
 export const DataProvider = ({ children }) => {
- 
+
 
   const [privateKey, setPrivatekey] = useState('');
   const [darkmode, setDarkmode] = useState(false);
@@ -21,23 +21,24 @@ export const DataProvider = ({ children }) => {
   const [NFTs, setNFTs] = useState([]);
   const [getKey, setGetKey] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  
+
 
   const [auth, setAuth] = useState({})
-  
-  
-  
-  
+
+
+
+
   const [myAssets, setMyAssets] = useState([]);
-  
-  
-  const [allAssets, setAllAssets] =useState([]);
+
+
+  const [allAssets, setAllAssets] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
   const [allMessages, setAllMessages] = useState([]);
   const [allcartitems, setAllcartitems] = useState([]);
+  const [search, setSearch] = useState('');
+  const [searchResult, setSearchResult] = useState([]);
 
 
-  
 
 
 
@@ -46,7 +47,7 @@ export const DataProvider = ({ children }) => {
   const [buyItemImage, setBuyItemImage] = useState('');
   const [buyItemQuantity, setBuyItemQuantity] = useState(1);
   const [buyItemPrice, setBuyItemPrice] = useState(0);
-  
+
   const [cartItemQuantity, setCartItemQuantity] = useState(1);
 
 
@@ -55,7 +56,7 @@ export const DataProvider = ({ children }) => {
 
   const handleThemeChange = () => { setDarkmode(old => !old); }
   const handleMenuTab = () => { setMenuTab(old => !old) };
-  const toggleBuyTab = () => {setBuyTab(old => !old)}
+  const toggleBuyTab = () => { setBuyTab(old => !old) }
 
 
   useEffect(() => {
@@ -68,83 +69,86 @@ export const DataProvider = ({ children }) => {
 
 
 
-useEffect(() => {
+  useEffect(() => {
+
+    const getAllUsers = async () => {
+      try {
+        const response = await axios.get('/getallusers');
+        console.log(response.data);
+        setAllUsers(response.data.users);
+        if (response.status === 204) return console.log('no content');
+
+      } catch (error) {
+        console.log(error.response.message)
+        console.log(error.response.status)
+      }
+    }
+    const getAllMessage = async () => {
+      try {
+        const response = await axios.get('/getallmessages');
+        console.log(response.data);
+        setAllMessages(response.data?.messages);
+        if (response.status === 204) return console.log('no content');
+
+      } catch (error) {
+        console.log(error.response.data)
+        console.log(error.response.status)
+      }
+    }
+    const getTrendData = async () => {
+
+      try {
+        const response = await axios.get('/trending');
+
+        console.log(response.data);
+        setBannerData(response.data.trendingAssets)
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    const getAllcartItems = async () => {
+      try {
+        const response = await axios.get('/getallcartitems');
+        console.log(response.data);
+        setAllcartitems(response.data.cartItems);
+        if (response.status === 204) return console.log('no content');
+
+      } catch (error) {
+        console.log(error.response.message)
+        console.log(error.response.status)
+      }
+    }
+    const getAllAssets = async () => {
+      try {
+        const response = await axios.get('/getallassets');
+        console.log(response.data);
+        setAllAssets(response.data.assets);
+        setSearchResult(response.data.assets)
+        if (response.status === 204) return console.log('no content');
+
+      } catch (error) {
+        console.log(error.response.message)
+        console.log(error.response.status)
+      }
+
+    }
+
+    getAllAssets()
+    getAllcartItems();
+    getTrendData()
+    getAllMessage();
+    getAllUsers();
+
+
+  }, [])
+
+
+
   
-  const getAllUsers = async() => {
-    try {
-      const response = await axios.get('/getallusers');
-      console.log(response.data);
-      setAllUsers(response.data.users);
-    if(response.status === 204 ) return console.log('no content');
-      
-    } catch (error) {
-      console.log(error.response.message)
-      console.log(error.response.status)
-    }
-  }
-  const getAllMessage = async() => {
-    try {
-      const response = await axios.get('/getallmessages');
-      console.log(response.data);
-      setAllMessages(response.data?.messages);
-    if(response.status === 204 ) return console.log('no content');
-      
-    } catch (error) {
-      console.log(error.response.data)
-      console.log(error.response.status)
-    }
-  }
-  const getTrendData = async () => {
 
-    try {
-      const response = await axios.get('/trending');
-      
-      console.log(response.data);
-      setBannerData(response.data.trendingAssets)
-    } catch (error) {
-      console.error(error);
-    }
-  }
-  const getAllcartItems = async() => {
-    try {
-      const response = await axios.get('/getallcartitems');
-      console.log(response.data);
-      setAllcartitems(response.data.cartItems);
-    if(response.status === 204 ) return console.log('no content');
-      
-    } catch (error) {
-      console.log(error.response.message)
-      console.log(error.response.status)
-    }
-  }
-  const getAllAssets = async () => {
-    try {
-      const response = await axios.get('/getallassets');
-      console.log(response.data);
-      setAllAssets(response.data.assets);
-    if(response.status === 204 ) return console.log('no content');
-      
-    } catch (error) {
-      console.log(error.response.message)
-      console.log(error.response.status)
-    }
-    
-  }
-
-  getAllAssets()
-  getAllcartItems(); 
-  getTrendData()
-  getAllMessage();
-  getAllUsers();
- 
-
-}, [])
-
-
- 
-
-
-
+  useEffect(() => {
+    if (search === '') { setSearchResult(allAssets) };
+  }, [search])
 
 
   function getImgUrl(logo) {
@@ -164,48 +168,50 @@ useEffect(() => {
 
 
 
-  
+
 
   //   login controllers
   const handleGetKey = () => {
     setGetKey(old => !old)
   }
 
-    const addToCart = async(id, userAddress, quantity, price, image, name, username) => {
+  const addToCart = async (id, userAddress, quantity, price, image, name, username) => {
 
-      console.log('cart add started')
+    console.log('cart add started')
+    console.log(id, userAddress, quantity, price, image, name, username)
 
 
-        if(!auth?.user) return window.alert('please login')
+    if (!auth?.user) return window.alert('please login')
 
-      
-        if(!id || !username  || !image || !quantity || !price || !name ) return window.alert('id required');
-        setIsLoading(true)
-        try {
-          const response = await axios.post('/addtocart', 
-           JSON.stringify({
-            itemId : id, 
-            userAddress : userAddress, 
-            itemImage : image, 
-            itemPrice : price, 
-            quantity : quantity, 
-            itemName : name, 
-            ownerName : username }))
 
-            
-          console.log(response.data)
-          console.log(response.status)
-          console.log(response.message)
-          if(response.status === 200) window.alert('item added')
-        } catch (error) {
-            console.log(error.response.data)
-            console.log(error.response.message)
-            console.log(error.response.status)
-        }finally{
-            setIsLoading(false)
-        }
-       
+    if (!id || !username || !image || !quantity || !price || !name) return window.alert('failed to add item');
+    setIsLoading(true)
+    try {
+      const response = await axios.post('/addtocart',
+        JSON.stringify({
+          itemId: id,
+          userAddress: userAddress,
+          itemImage: image,
+          itemPrice: price,
+          quantity: quantity,
+          itemName: name,
+          ownerName: username
+        }))
+
+
+      console.log(response.data)
+      console.log(response.status)
+      console.log(response.message)
+      if (response.status === 200) window.alert('item added')
+    } catch (error) {
+      console.log(error.response.data)
+      console.log(error.response.message)
+      console.log(error.response.status)
+    } finally {
+      setIsLoading(false)
     }
+
+  }
 
   return (
     <DataContext.Provider
@@ -233,6 +239,10 @@ useEffect(() => {
           allMessages,
           allcartitems,
           auth,
+          search,
+          searchResult,
+          setSearchResult,
+          setSearch,
           setAuth,
           setAllcartitems,
           setAllAssets,
@@ -257,7 +267,7 @@ useEffect(() => {
           handleGetKey,
           addToCart,
           setCartItemQuantity,
-          
+
         }
       }>
       {children}

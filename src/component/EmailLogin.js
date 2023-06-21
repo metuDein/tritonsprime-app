@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from '../api/axios';
 import useAuth from '../hook/useAuth';
 
@@ -11,7 +11,10 @@ import useAuth from '../hook/useAuth';
 const EmailLogin = () => {
     const {auth, setAuth} = useAuth()
 
-    const navigate = useNavigate() 
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const from = location?.state?.from?.pathname || '/';
 
     const [currentForm, setCurrentForm] = useState(1);
     const [userName, setUserName] = useState('');
@@ -42,7 +45,7 @@ const EmailLogin = () => {
                 setAuth(response.data)
                     window.alert('registration successful')
                 setTimeout(() => {
-                    navigate('/user-profile')
+                    navigate(from, {replace : true});
                 }, 3000);
             }
         } catch (error) {
@@ -67,7 +70,7 @@ const EmailLogin = () => {
                 setAuth(response.data)
                 window.alert('login successful')
                 setTimeout(() => {
-                    navigate('/user-profile')
+                    navigate(from, {replace : true});
                 }, 3000);
             }
         } catch (error) {
