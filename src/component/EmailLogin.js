@@ -52,6 +52,7 @@ const EmailLogin = () => {
                 }, 3000);
             }
             if(response.status === 403){
+                setSuccessMsg('registration successful')
 
             }
         } catch (error) {
@@ -78,8 +79,7 @@ const EmailLogin = () => {
                 setTimeout(() => {
                     navigate(from, {replace : true});
                 }, 3000);
-            }
-            if(response.status === 401){
+            }else{
                 setErrMsg('invalid credentials')
             }
         } catch (error) {

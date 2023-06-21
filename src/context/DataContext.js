@@ -64,8 +64,11 @@ export const DataProvider = ({ children }) => {
 
     setTimeout(() => {
       setIsLoading(false)
-    }, 6000);
-  }, [])
+    }, 3000);
+  }, []);
+
+
+
 
 
 
