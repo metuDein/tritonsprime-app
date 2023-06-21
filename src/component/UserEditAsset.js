@@ -124,6 +124,7 @@ const UserEditAsset = () => {
         }catch(error){
             console.log(error.response.status)
             console.log(error.response.message)
+            window.alert('item failed to delete')
         }
       
 

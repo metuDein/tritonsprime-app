@@ -969,6 +969,7 @@ a{
   color: #fff;
   width: 100%;
   padding: 0 40px;
+  margin-top: 40px;
 }
 .help--title-1{
   color: #fff;
@@ -1591,6 +1592,7 @@ small {
 }
 
 .adminusers--section {
+  margin-top: 40px;
   padding: 10px 40px;
   position: relative;
   max-height: 100vh;
@@ -1935,6 +1937,9 @@ small {
     width: 100%;
     max-width: 375px;
   }
+  .action--message{
+    font-size: 13px;
+  }
   
   .slider-container{
     width: 100%;
@@ -2173,6 +2178,9 @@ small {
     padding: 10px 10px;
     align-items: flex-start;
   }
+  .action--message{
+    font-size: 13px;
+  }
   .main--display{
     width: 100%;
     max-width:520px;
@@ -2401,6 +2409,9 @@ small {
     flex-direction: column;
     padding: 10px 10px;
     align-items: flex-start;
+  }
+  .action--message{
+    font-size: 13px;
   }
   .main--display{
     width: 100%;

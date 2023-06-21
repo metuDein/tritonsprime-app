@@ -1,15 +1,16 @@
 import {useState, useEffect, useContext} from 'react'
 import axios from '../api/axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faImage } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import { faImage, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { Link, useNavigate } from 'react-router-dom';
 import DataContext from '../context/DataContext';
 import { FaEthereum } from 'react-icons/fa';
 
 
 const AdminCreateAsset = () => {
    
-    const { allUsers } = useContext(DataContext);
+    const navigate = useNavigate();
+    const { allUsers, setAllAssets } = useContext(DataContext);
 
     
     const [users, setUsers] = useState([])
@@ -21,6 +22,7 @@ const AdminCreateAsset = () => {
     const [supply, setSupply] = useState('');
     const [blockChain, setBlockChain] = useState('');
     const [Category, setCategory] = useState('');
+    const [authLoading, setAuthLoading] = useState(false);
 
     
 
@@ -71,10 +73,11 @@ const AdminCreateAsset = () => {
         
         if(!nftName || !nftImage || !price || !description || !supply ) { 
 
-            return console.log(' all field required');
+            return window.alert(' all field required');
 
         }else{
             try {
+                setAuthLoading(true)
                 const response =  await axios.post('/adminassets', JSON.stringify({assetName : nftName, assetImage : nftImage, assignTo : owner, assetQuantity : supply, assetPrice : price,  assetNetwork : blockChain, description : description, assetCategory : Category }), {
                     headers : {
                         "Content-Type" : 'application/json',
@@ -83,17 +86,32 @@ const AdminCreateAsset = () => {
                 })
 
 
-            if(response.status === 409) return alert('duplicate asset');
+            if(response.status === 409){
+                window.alert('duplicate asset');
+                setAuthLoading(false)
+                return
 
-            if (response.status === 200) return alert('success');
+            };
+
+            if (response.status === 200) {
+                
+                setAllAssets( old => {
+                    const newAsset = response.data.newAsset;
+                    let allAssets = [...old, newAsset]
+                    return allAssets
+                })
+                setAuthLoading(false);
+                return window.alert('success')
+                navigate(-1);
+            
+            };
             console.log(response.data);
                 
             } catch (error) {
                 console.log(error.response.status)
                 console.log(error.response.data)
+                setAuthLoading(false);
             }
-            
-            
         }
 
     }
@@ -121,7 +139,7 @@ const AdminCreateAsset = () => {
                         <span className='upload-overlay'> </span>
                         <input type="file" name='nftImage' id='file-upload' onChange={handleImageChange} />
                         <span className='upload-screen-read'>{!nftImage && nftImage !== null && <FontAwesomeIcon icon={faImage} style={{ fontSize: '70px' }} />}
-                            {nftImage == "" || nftImage == null ? "" : <img src={nftImage} alt="" style={{ zIndex: '10', objectFit: 'contain', width: '100%', height: '100%' }} />}</span>
+                            {nftImage == "" || nftImage === null ? "" : <img src={nftImage} alt="" style={{ zIndex: '10', objectFit: 'contain', width: '100%', height: '100%' }} />}</span>
                     </label>
                     <div className='nft-create-text'>
                         <label htmlFor='file-name' className='nft-create-name'>
@@ -201,7 +219,8 @@ const AdminCreateAsset = () => {
                         </select>
 
                     </div>
-                    <button> Create </button>
+                    {!authLoading && <button> Create </button>}
+                    {authLoading && <button>  <FontAwesomeIcon icon={faSpinner} spin style={{color: "#c7d2e5", fontSize : '18px'}} /> </button>}
                 </form>
             </div>
 

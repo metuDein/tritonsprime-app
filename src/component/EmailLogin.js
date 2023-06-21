@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import axios from '../api/axios';
 import useAuth from '../hook/useAuth';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleCheck, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import { faCircleCheck, faCircleXmark, faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -23,6 +23,7 @@ const EmailLogin = () => {
     const [password, setPassword] = useState('')
     const [successMsg, setSuccessMsg] = useState(null)
     const [errMsg, setErrMsg] = useState(null)
+    const [authLoading, setAuthLoading] = useState(false);
     
 
     const changeToSignUp = () => {
@@ -34,8 +35,9 @@ const EmailLogin = () => {
 
     const handleRegister = async (e) => {
         e.preventDefault();
-        if(!userName || !email || !password) return window.alert('all field are required');
+        if(!userName || !email || !password) return setErrMsg('all field are required');
 
+        setAuthLoading(true);
         try {
             const response = await axios.post('/userregister', JSON.stringify({ username : userName, email : email, password : password }));
             console.log(response.data.message)
@@ -46,19 +48,20 @@ const EmailLogin = () => {
                 setEmail('');
                 setPassword('');
                 setAuth(response.data)
-                   setSuccessMsg('registration successful')
+                setSuccessMsg('registration successful')
+                setAuthLoading(false)
                 setTimeout(() => {
                     navigate(from, {replace : true});
                 }, 3000);
             }
-            if(response.status === 403){
+            if(response.status === 201){
                 setSuccessMsg('registration successful')
-
             }
         } catch (error) {
             console.log(error.response.data)
             console.log(error.response.message)
             console.log(error.response.status)
+            setErrMsg('response.data')
         }
 
     }
@@ -68,6 +71,7 @@ const EmailLogin = () => {
         if(!userName || !password) return window.alert('all field are required');
 
         try {
+            setAuthLoading(true)
             const response = await axios.post('/userlogin', JSON.stringify({ username : userName, password : password }));
             console.log(response.data)
             console.log(response.status)
@@ -75,17 +79,24 @@ const EmailLogin = () => {
                 setUserName('');
                 setPassword('');
                 setAuth(response.data)
+                setErrMsg(null)
                setSuccessMsg('Login Successful');
+               setAuthLoading(false)
+
                 setTimeout(() => {
                     navigate(from, {replace : true});
                 }, 3000);
+
             }else{
-                setErrMsg('invalid credentials')
+                
             }
         } catch (error) {
             console.log(error.response.data)
             console.log(error.response.message)
             console.log(error.response.status)
+            setSuccessMsg(null)
+            setAuthLoading(false)
+            setErrMsg('invalid credentials')
         }
     }
 
@@ -129,10 +140,13 @@ const EmailLogin = () => {
                         </div>
 
                         <span onClick={changeToSignUp} className='directtoauth'>No account yet Create an Account</span>
-
-                        <button className='login--btn' onClick={handleLogin}>
+                        
+                        {authLoading && <button className='login--btn' onClick={e => e.preventDefault}>
+                            <FontAwesomeIcon icon={faSpinner} spin style={{color: "#c7d2e5", fontSize : '18px'}} />
+                        </button>}
+                        {!authLoading && <button className='login--btn' onClick={handleLogin}>
                             <span> Login </span>
-                        </button>
+                        </button>}
                     </>
                 );
                 case 2: 
@@ -187,9 +201,13 @@ const EmailLogin = () => {
 
                         <span  onClick={changeTologin}  className='directtoauth'>Already signed up Login</span>
 
-                        <button className='login--btn' onClick={handleRegister}>
+                        {authLoading && <button className='login--btn' onClick={e => e.preventDefault}>
+                            <FontAwesomeIcon icon={faSpinner} spin style={{color: "#c7d2e5", fontSize : '18px'}} />
+                        </button>}
+                        {!authLoading && <button className='login--btn' onClick={handleRegister}>
                             <span> Sign up </span>
-                        </button>
+                           
+                        </button>}
                     </>
                 )
                 

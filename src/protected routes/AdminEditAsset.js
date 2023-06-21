@@ -1,13 +1,14 @@
 import { useState, useEffect, useContext } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from '../api/axios';
 import DataContext from '../context/DataContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage } from '@fortawesome/free-solid-svg-icons';
 
 const AdminEditAsset = () => {
+    const navigate = useNavigate()
 
-    const { getImgUrl, isLoading, setIsLoading, allAssets } = useContext(DataContext);
+    const { getImgUrl, isLoading, setIsLoading, allAssets, setAllAssets } = useContext(DataContext);
     const { id } = useParams();
 
     const asset = allAssets.find(asset => asset._id === id);
@@ -16,15 +17,15 @@ const AdminEditAsset = () => {
 
 
     // const [asset, setAsset] = useState({})
-    const [assetName, setAssetName] = useState(asset.name);
-    const [assetImage, setAssetImage] = useState(asset.image);
-    const [assetTrend, setAssetTrend] = useState(asset.trending);
-    const [assetPrice, setAssetPrice] = useState(asset.price);
-    const [assetSupply, setAssetSupply] = useState(asset.block_number_minted);
-    const [assetOwner, setAssetOwner] = useState(asset.OwnerName);
-    const [assetNetwork, setAssetNetwork] = useState(asset.network);
-    const [assetDescription, setAssetDescription] = useState(asset.description);
-    const [assetCategory, setAssetCategory] = useState(asset.categories);
+    const [assetName, setAssetName] = useState(asset?.name);
+    const [assetImage, setAssetImage] = useState(asset?.image);
+    const [assetTrend, setAssetTrend] = useState(asset?.trending);
+    const [assetPrice, setAssetPrice] = useState(asset?.price);
+    const [assetSupply, setAssetSupply] = useState(asset?.block_number_minted);
+    const [assetOwner, setAssetOwner] = useState(asset?.OwnerName);
+    const [assetNetwork, setAssetNetwork] = useState(asset?.network);
+    const [assetDescription, setAssetDescription] = useState(asset?.description);
+    const [assetCategory, setAssetCategory] = useState(asset?.categories);
 
 
 
@@ -87,7 +88,18 @@ const AdminEditAsset = () => {
             console.log(response.data)
             console.log(response.status)
             console.log(response.message)
-            if(response.status === 200) return window.alert('asset updated')
+            if(response.status === 200){
+                setAllAssets( old => {
+                    const others =  old.filter(item => item._id !== id);
+                    const allAsset = [...others, response.data?.result]
+                    return allAsset
+                })
+                
+                window.alert('asset updated')
+                setTimeout(() => {
+                    return
+                }, 1500);
+            }
         } catch (error) {
             console.log(error.response.status)
             console.log(error.response.message)
@@ -106,7 +118,29 @@ const AdminEditAsset = () => {
             const response = await axios.post('/admindeleteassets', JSON.stringify({ id: id }));
             console.log(response.data);
             console.log(response.status);
-            if(response.status === 200) return window.alert('asset deleted')
+            
+            if(response.status === 200){
+            setAllAssets( old => {
+                const others =  old.filter(item => item._id !== id);
+                return others
+            })
+            navigate('/admin-panel-assets');
+            setAssetName(null)
+            setAssetTrend(null)
+            setAssetImage(null)
+            setAssetPrice(null)
+            setAssetSupply(null)
+            setAssetNetwork(null)
+            setAssetDescription(null)
+            setAssetCategory(null)
+
+
+            //  window.alert('asset deleted');
+            //  setTimeout(() => {
+            //     return
+            // }, 1500);
+            } 
+            
 
         } catch (error) {
             console.log(error.response.status)
