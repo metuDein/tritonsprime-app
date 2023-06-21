@@ -20,6 +20,8 @@ const EmailLogin = () => {
     const [userName, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
+    const [successMsg, setSuccessMsg] = useState(null)
+    const [errMsg, setErrMsg] = useState(null)
     
 
     const changeToSignUp = () => {
@@ -43,7 +45,7 @@ const EmailLogin = () => {
                 setEmail('');
                 setPassword('');
                 setAuth(response.data)
-                    window.alert('registration successful')
+                   setSuccessMsg('registration successful')
                 setTimeout(() => {
                     navigate(from, {replace : true});
                 }, 3000);
@@ -68,10 +70,13 @@ const EmailLogin = () => {
                 setUserName('');
                 setPassword('');
                 setAuth(response.data)
-                window.alert('login successful')
+               setSuccessMsg('Login Successful');
                 setTimeout(() => {
                     navigate(from, {replace : true});
                 }, 3000);
+            }
+            if(response.status === 401){
+                setErrMsg(response.data)
             }
         } catch (error) {
             console.log(error.response.data)
@@ -86,7 +91,12 @@ const EmailLogin = () => {
                 return (
                     <>
                     <h1 style={{textAlign : 'center'}}>Welcome Back</h1>
-                    <span> </span>
+                    {successMsg && <span className='action--message'>
+                                <FontAwesomeIcon icon={faCircleCheck} style={{ color: "#2d9f40", fontSize: '16px', marginRight: '10px' }} /> {successMsg}
+                            </span>}
+                            {errMsg && errMsg !== '' && <span className='action--message'>
+                                <FontAwesomeIcon icon={faCircleXmark} style={{ color: "#cc0000", fontSize: '16px', marginRight: '10px' }} /> {errMsg}
+                            </span>}
                         <div className='nft-create-text'>
                             <label htmlFor='file-name' className='nft-create-name'>
                                 Username
@@ -125,6 +135,12 @@ const EmailLogin = () => {
                 return (
                     <>
                     <h1 style={{textAlign : 'center'}}>Welcome to TritonsPrime</h1>
+                    {successMsg && successMsg !== null && <span className='action--message'>
+                                <FontAwesomeIcon icon={faCircleCheck} style={{ color: "#2d9f40", fontSize: '16px', marginRight: '10px' }} /> {successMsg}
+                            </span>}
+                            {errMsg && errMsg !== null && <span className='action--message'>
+                                <FontAwesomeIcon icon={faCircleXmark} style={{ color: "#cc0000", fontSize: '16px', marginRight: '10px' }} /> {errMsg}
+                            </span>}
                         <div className='nft-create-text'>
                             <label htmlFor='file-name' className='nft-create-name'>
                                 User Name
