@@ -66,7 +66,7 @@ const ItemPage = () => {
           }finally{
             setTimeout(() => {
                 setIsLoading(false)
-            }, 6000);
+            }, 3000);
           }
     }
 
