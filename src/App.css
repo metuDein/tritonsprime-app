@@ -2008,6 +2008,10 @@ small {
   margin: 15px 0;
 
 }
+.cart--table tbody tr td img {
+  height: 100px;
+  width: 100px;
+}
 .tut--sect{
   padding: 10px 20px;
 }
@@ -2377,6 +2381,10 @@ small {
 }
 .main--display{
   margin-bottom: 20px;
+}
+.cart--table tbody tr td img {
+  height: 100px;
+  width: 100px;
 }
 
 }

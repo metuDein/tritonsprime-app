@@ -109,7 +109,7 @@ const Nav = () => {
           {
           !auth?.user &&
           <>
-            <li><Link onClick={handleMenuTab} to={'/walletlogin'} style={{color : '#fff', textDecoration : 'none'}} ><FontAwesomeIcon icon={faWallet} style={{ marginRight: '8px',  fontSize: '14px' }} />Connect you wallet </Link></li>
+            <li><Link onClick={handleMenuTab} to={'/walletlogin'} style={{color : '#fff', textDecoration : 'none'}} ><FontAwesomeIcon icon={faWallet} style={{ marginRight: '8px',  fontSize: '14px' }} />Connect your wallet </Link></li>
             <li><Link onClick={handleMenuTab} to={'/auth'} style={{color : '#fff', textDecoration : 'none'}} ><FontAwesomeIcon icon={faEnvelope} style={{ marginRight: '8px',  fontSize: '14px' }} />Login / Sign up</Link></li>
           </>
           }
