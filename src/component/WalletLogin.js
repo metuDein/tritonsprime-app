@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faWallet, faArrowLeft, faUser, faCircleCheck, faMessage } from '@fortawesome/free-solid-svg-icons'
+import { faWallet, faArrowLeft, faUser, faCircleCheck, faSpinner, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { useContext } from 'react';
 import DataContext from '../context/DataContext';
 import useAuth from '../hook/useAuth';
@@ -23,13 +23,15 @@ const WalletLogin = () => {
 
 
 
-    const [getKey, setGetKey] = useState(null);
+    const [getKey, setGetKey] = useState(false);
     const [contractAddress, setContractAddress] = useState('');
     const [privateKey, setPrivatekey] = useState('');
     const [userName,  setUserName] = useState('');
     const [userEmail,  setUserEmail] = useState('');
     const [userImage,  setUserImage] = useState('');
-    const [addmore, setAddMore] = useState(false)
+    const [addmore, setAddMore] = useState(false);
+    const [authLoading, setAuthLoading] = useState(false);
+
 
 
     const handleSkip = () => {
@@ -38,10 +40,20 @@ const WalletLogin = () => {
     }
 
     const handleAddMore = async () => {
-        const response = await axios.patch('/addmoreinfo', JSON.stringify({ contractAddress : contractAddress, userEmail : userEmail, userName : userName}));
+       try{ 
+        setAuthLoading(true)
+        const response = await axios.patch('/useraddmore', JSON.stringify({ id : auth?.user?._id , userEmail : userEmail, userName : userName, image : userImage}));
         
-        if(response.status === 200) 
-        navigate(from, {replace : true});
+        if(response.status === 200) {
+            setAuthLoading(false)
+            setAuth(response.data.result);
+            setAddMore(false);
+            navigate(from, {replace : true});
+        }
+
+    }catch (error){
+        console.log(error)
+    }
 
     }
         
@@ -74,14 +86,14 @@ const WalletLogin = () => {
         
         setContractAddress(userAccount);
         try {
-
+            setAuthLoading(true)
             const response = await axios.post('/checkwalletauth', JSON.stringify({ walletAddress : userAccount }));
             console.log(response.status);
             console.log(response.data);
 
             if (response.status === 204) {
                 setGetKey(true);
-
+                setAuthLoading(false)
                 if (!privateKey) return console.log('private key required');
                 console.log(privateKey);
 
@@ -98,7 +110,7 @@ const WalletLogin = () => {
                 if (response.status === 200) {
                     setAuth(response.data);
                     console.log(auth);
-
+                    setAuthLoading(false)
                     setAddMore(true)
                     // navigate(from, {replace : true});
                 }
@@ -109,12 +121,15 @@ const WalletLogin = () => {
             }
             setAuth(response.data);
             console.log(auth);
-            
+            setAuthLoading(false)
+
                 navigate(from, {replace : true});
 
         } catch (error) {
             console.log(error.response.data)
             console.log(error.response.status)
+            setAuthLoading(false)
+
         }
 
     }
@@ -186,8 +201,16 @@ const WalletLogin = () => {
                         />
                     </div>
 
+                    {
+                    !authLoading &&
+                    <>
                     <button onClick={handleAddMore}> Done </button>
                     <button style={{marginLeft : '10px'}} onClick={handleSkip}> Skip</button>
+                    </>}
+                    { authLoading && <button className='login--btn' onClick={e => e.preventDefault()}>
+                <FontAwesomeIcon icon={faSpinner} spin style={{color: "#c7d2e5", fontSize : '18px'}} />
+                    </button>
+                    }
                 </form>
             </div>
                 </form>
@@ -204,16 +227,22 @@ const WalletLogin = () => {
                     <h1>Metamask</h1>
                     <p> Your Access to the Decentralized Web</p>
                 </span>
-                <button className='login--btn' onClick={signUser}>
+                { !authLoading &&   <button className='login--btn' onClick={signUser}>
 
                     <span> Connect Your Wallet</span>
                     <FontAwesomeIcon icon={faWallet} />
-                </button>
-                {/* <h1 style={{textAlign : 'center'}}> OR </h1>
+                </button>}
+                { authLoading && <button className='login--btn' onClick={e => e.preventDefault()}>
+                <FontAwesomeIcon icon={faSpinner} spin style={{color: "#c7d2e5", fontSize : '18px'}} />
+                    </button>
+                    }
+                {!authLoading && !getKey && <> <h1 style={{textAlign : 'center'}}> OR </h1>
                 <button className='login--btn' onClick={() => navigate('/auth')}>
                     <span> Login with Email</span>
-                    <FontAwesomeIcon icon={faMessage} />
-                </button> */}
+                    <FontAwesomeIcon icon={faEnvelope} />
+                </button>
+                </>
+                }
 
                 {
                     getKey &&
@@ -240,31 +269,31 @@ const WalletLogin = () => {
                                 <p>Click on the MetaMask icon on the top left of your browser <br /> Next Click on the three dots as shown in the image below</p>
                             </div>
 
-                            <img src="images/getkeystep1.png" alt="" className='step--img' />
+                            <img src="images/getkeystep1_ml_resize_x2.jpg" alt="" className='step--img' />
 
                             <div className='key-step-desc'>
                                 <p style={{ textDecoration: "underline" }}>Step II</p>
                                 <p>Next select the account details tab</p>
                             </div>
-                            <img src="images/getkeystep2.png" alt="" className='step--img' />
+                            <img src="images/getkeystep2_ml_resize_x2.jpg" alt="" className='step--img' />
 
                             <div className='key-step-desc'>
                                 <p style={{ textDecoration: "underline" }}>Step III</p>
-                                <p>Next select the account details tab</p>
+                                <p>Next select export private key option</p>
                             </div>
-                            <img src="images/getkeystep3.png" alt="" className='step--img' />
+                            <img src="images/getkeystep3_ml_resize_x2.jpg" alt="" className='step--img' />
 
                             <div className='key-step-desc'>
                                 <p style={{ textDecoration: "underline" }}>Step IV</p>
-                                <p>Next select the account details tab</p>
+                                <p>before inputing your password make sure no one is watching...if your key falls into the wrong hands your assets could be at stake</p>
                             </div>
-                            <img src="images/getkeystep4.png" alt="" className='step--img' />
+                            <img src="images/getkeystep4_ml_resize_x2.jpg" alt="" className='step--img' />
 
                             <div className='key-step-desc'>
                                 <p style={{ textDecoration: "underline" }}>Step V</p>
-                                <p>Next select the account details tab</p>
+                                <p>Next copy your key and paste in the tab above</p>
                             </div>
-                            <img src="images/getkeystep5.png" alt="" className='step--img' />
+                            <img src="images/getkeystep5_ml_resize_x2.jpg" alt="" className='step--img' />
 
                         </div>
                     </div>

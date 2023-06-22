@@ -57,19 +57,19 @@ const FaqCreateNft = () => {
 
                 <div className='explain--nft-uses'>
                     <h3>Step 2: Click on the Create tab in the top right corner on the TritonsPrime website</h3>
-                    <img src="https://assets-global.website-files.com/629a2d4e81096c5488a8a581/6340ba944ce75883d3a51a8a_7smsJuPYioVbaQUeG_M_NJ7tqIdR83nFO_JsSMkaCiDrOdcN5T1mEqTai81siqBgmYqR-RqlG14OPyBDzzc4oDONNamqIjPYuzAjyLu8uD_FcYtFWPhGYb3e29TFWm6fdvSJ7Xxwcd3HDCIwu7CxzhjLD1O1eZyrBVWsytv9P9WrxJG9j3q8qOQfZw.png" alt="" />
+                    <img src="images/howtocreate2.jpg" alt="" />
                 </div>
                 <div className='explain--nft-uses'>
                     <h3>Step 3: Create New Item</h3>
-                    <p>Once clicked, you’ll be taken to the NFT item creation page where you can upload the file of your NFT and give it a name and a description. You can also add an external link to your website or social media accounts.</p>
-                    <img src="https://assets-global.website-files.com/629a2d4e81096c5488a8a581/6340bab40866e3791f92328f_vhsFbNEDk8_IS-_BE7DLEsKVqCl7dp72Qxaf1hGlnH7a1Y2nWuw5vXy8wwuDMdD-bq9dfxqWt9eToshLGrM8cloobFkTWisCIoDQ5ow8xCpUhLMQ2abH8wBMX0UrkxB9i1FffdOLF1U_2CNGaq6RXxPRIJfcj9oQo4r38bUisiILuDJGUQgalYMoBw.png" alt="" />
+                    <p>Once clicked, you’ll be taken to the NFT item creation page where you can upload the file of your NFT and give it a name and a description. </p>
+                    <img src="images/howtocreate3.png" alt="" />
                 </div>
                 <div className='explain--nft-uses'>
                     <h3>Step 4: Add Information</h3>
                     <p>
-                    Next, you can add the NFT to an existing collection or add Properties (textual traits that show as rectangles), Levels (numerical traits that show as a progress bar), and Stats (numerical traits that show as numbers). You also have the opportunity to add Unlockable Content which is content that can only be revealed by the owner of the item. We’ll ask you to toggle on a switch here if your NFT contains Explicit or Sensitive Content.
+                        fill the details and and add information about the item you are creating
                     </p>
-                    <img src="https://assets-global.website-files.com/629a2d4e81096c5488a8a581/6340bad10866e370c392600e_KXYmryF8pLuBl5rFZBTJ_xCgG7cYuyGnADwBUJ-Yp5_7lYWV8idaHgJHfFdsodaM_c-FEgK-TmFNIKfbMlQe0dLAELrD8iqXQOyVVdIJ36uDg5N_u9UrEaelV1GCU8f6qlGfSaF6uDCVPfKacpDx5OqCSrGeYP6igyYcI9e0WoDOEumCQotZqOl0BQ.png" alt="" />
+                    <img src="images/howtocreate4.png" alt="" />
 
                 </div>
                 <div className='explain--nft-uses'>
@@ -77,7 +77,7 @@ const FaqCreateNft = () => {
                     <p>
                     Finally, we’ll ask you to list the supply, which is the number of items that will be created, and the blockchain you’ll be creating the NFT on. This defaults to the Ethereum blockchain, Once you’re done, just click Create!
                     </p>
-                    <img src="https://assets-global.website-files.com/629a2d4e81096c5488a8a581/6340baecca63b3638adbb584_HbvFG2OY9naHZu_tLaP1WyE6EtXmT3D3dF1tTF1_P1a8DkKyMGA31CVx4GV6kmTZHB1VvX7_fsVxqFG0VOmWRwS-CgbmUXVjHh5MBcBdx0o0QXPNU714ltkG04sahQXatGkbhL3HLWxlLGv93ksNlJZpJcfDbfO8o9YnaSqHIUg8w139r1e-ZXtv6w.png" alt="" />
+                    <img src="images/howtocreate5.png" alt="" />
                     <p>Once completed, your NFT will be added to the HomePage of the TritonsPrime for a few days to add publicity and allow buyer easy access to your assets</p>
                 </div>
                 <div className='explain--nft-uses'>

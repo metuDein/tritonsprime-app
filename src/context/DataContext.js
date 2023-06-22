@@ -39,7 +39,7 @@ export const DataProvider = ({ children }) => {
   const [searchResult, setSearchResult] = useState([]);
 
 
-
+  
 
 
   const [buyTab, setBuyTab] = useState(false);
@@ -67,6 +67,31 @@ export const DataProvider = ({ children }) => {
     }, 3000);
   }, []);
 
+
+  useEffect(() => {
+
+    const PersistLogin = async() => {
+
+      if(localStorage.getItem('usernamepersist') && localStorage.getItem('pwdpersist') ){ 
+  try{
+        let userName  = localStorage.getItem('usernamepersist')
+        let password  = localStorage.getItem('pwdpersist')
+        
+        console.log(password, userName)
+        const response = await axios.post('/userlogin', JSON.stringify({ username : userName, password : password }));
+        setAuth(response.data);
+      }catch (error){
+        console.log(error.response.data)
+        console.log(error.response.message)
+        console.log(error.response.status)
+      }
+      }else{
+        return
+      }
+    }
+
+    PersistLogin()
+  }, [])
 
 
 
@@ -153,6 +178,9 @@ export const DataProvider = ({ children }) => {
     if (search === '') { setSearchResult(allAssets) };
   }, [search])
 
+  useEffect(() => {
+    setSearchResult(allAssets);
+  }, [allAssets])
 
   function getImgUrl(logo) {
     if (!logo) return 'images/finallogo.png';

@@ -45,7 +45,7 @@ const Profile = () => {
 
 
     const assetsCell = (
-        myAssets?.map(asset => {
+        myAssets.slice().reverse()?.map(asset => {
             return <tr className='cart--item--details admin-asset' key={asset._id}>
                  <div className='admin--assets'>
                     <Link to={`/user-edit-asset/${asset._id}`} style={{ textDecoration: 'none', background: "blue", color: '#fff', padding: '5px 30px', borderRadius: '5px' }}> Edit </Link>

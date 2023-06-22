@@ -3,12 +3,12 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from '../api/axios';
 import DataContext from '../context/DataContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faImage } from '@fortawesome/free-solid-svg-icons';
+import { faImage, faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 const AdminEditAsset = () => {
     const navigate = useNavigate()
 
-    const { getImgUrl, isLoading, setIsLoading, allAssets, setAllAssets } = useContext(DataContext);
+    const { getImgUrl, isLoading,  allAssets, setAllAssets } = useContext(DataContext);
     const { id } = useParams();
 
     const asset = allAssets.find(asset => asset._id === id);
@@ -26,6 +26,9 @@ const AdminEditAsset = () => {
     const [assetNetwork, setAssetNetwork] = useState(asset?.network);
     const [assetDescription, setAssetDescription] = useState(asset?.description);
     const [assetCategory, setAssetCategory] = useState(asset?.categories);
+    const [authLoading, setAuthLoading] = useState(false);
+
+    
 
 
 
@@ -81,8 +84,9 @@ const AdminEditAsset = () => {
 
         e.preventDefault();
 
-        if (!id) return console.log('user asset id required');
+        if (!id) return window.alert('user asset id required');
         try {
+            setAuthLoading(true);
             const response = await axios.put('/adminassets', JSON.stringify({ id: id, description: assetDescription, price: assetPrice, supply: assetSupply, category: assetCategory, trending: assetTrend, token_address: assetOwner, image: assetImage }));
 
             console.log(response.data)
@@ -94,15 +98,16 @@ const AdminEditAsset = () => {
                     const allAsset = [...others, response.data?.result]
                     return allAsset
                 })
-                
+                setAuthLoading(false)
                 window.alert('asset updated')
-                setTimeout(() => {
-                    return
-                }, 1500);
+                
+                return
+             
             }
         } catch (error) {
             console.log(error.response.status)
             console.log(error.response.message)
+            window.alert('asset update failed');
         }
 
 
@@ -113,13 +118,15 @@ const AdminEditAsset = () => {
 
         e.preventDefault()
 
-        if (!id) return console.log('id required');
+        if (!id) return window.alert('id required');
         try {
+            setAuthLoading(true)
             const response = await axios.post('/admindeleteassets', JSON.stringify({ id: id }));
             console.log(response.data);
             console.log(response.status);
             
             if(response.status === 200){
+                setAuthLoading(false)
             setAllAssets( old => {
                 const others =  old.filter(item => item._id !== id);
                 return others
@@ -146,6 +153,7 @@ const AdminEditAsset = () => {
             console.log(error.response.status)
             console.log(error.response.data)
             console.log(error.response.message);
+            window.alert('delete failed')
         }
     }
 
@@ -268,10 +276,17 @@ const AdminEditAsset = () => {
 
                     </div>
 
+                    
+                    {authLoading && <button onClick={e => e.preventDefault()}>  <FontAwesomeIcon icon={faSpinner} spin style={{color: "#c7d2e5", fontSize : '18px'}} /> </button>}
 
-                    <button onClick={handleAssetUpdate}> Save Changes </button>
+                    {
+                        !authLoading &&
+                        <>
+                        <button onClick={handleAssetUpdate}> Save Changes </button>
 
                     <button style={{ marginLeft: '10px' }} onClick={handleAssetDelete}> Delete Asset</button>
+                    </>
+                    }
                 </form>
             </div>
 

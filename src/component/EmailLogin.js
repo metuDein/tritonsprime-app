@@ -24,6 +24,7 @@ const EmailLogin = () => {
     const [successMsg, setSuccessMsg] = useState(null)
     const [errMsg, setErrMsg] = useState(null)
     const [authLoading, setAuthLoading] = useState(false);
+    const [persist, setPersist] = useState(false);
     
 
     const changeToSignUp = () => {
@@ -33,6 +34,15 @@ const EmailLogin = () => {
         setCurrentForm(old => old - 1);
     }
 
+    const togglePersist = (e) => {
+
+        setPersist(e.target.checked);
+    }
+
+    useEffect(() => {
+        localStorage.setItem('persist', persist)
+        console.log(localStorage.getItem('persist'));
+    }, [persist])
     const handleRegister = async (e) => {
         e.preventDefault();
         if(!userName || !email || !password) return setErrMsg('all field are required');
@@ -81,7 +91,13 @@ const EmailLogin = () => {
                 setAuth(response.data)
                 setErrMsg(null)
                setSuccessMsg('Login Successful');
-               setAuthLoading(false)
+               setAuthLoading(false);
+
+               if(localStorage.getItem('persist') == true){
+                localStorage.setItem('usernamepersist', JSON.stringify(auth?.user?.userName));
+                localStorage.setItem('pwdpersist', JSON.stringify(auth?.user?.password));
+                }
+              
 
                 setTimeout(() => {
                     navigate(from, {replace : true});
@@ -140,6 +156,7 @@ const EmailLogin = () => {
                         </div>
 
                         <span onClick={changeToSignUp} className='directtoauth'>No account yet Create an Account</span>
+                        <input type={'checkbox'} checked={persist} onChange={togglePersist} /> Remember me ?
                         
                         {authLoading && <button className='login--btn' onClick={e => e.preventDefault}>
                             <FontAwesomeIcon icon={faSpinner} spin style={{color: "#c7d2e5", fontSize : '18px'}} />

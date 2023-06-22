@@ -227,31 +227,31 @@ const UserSettings = () => {
                                     <p>Click on the MetaMask icon on the top left of your browser <br /> Next Click on the three dots as shown in the image below</p>
                                 </div>
 
-                                <img src="images/getkeystep1.png" alt="" className='step--img' />
+                                <img src="images/getkeystep1_ml_resize_x2.jpg" alt="" className='step--img' />
 
                                 <div className='key-step-desc'>
                                     <p style={{ textDecoration: "underline" }}>Step II</p>
                                     <p>Next select the account details tab</p>
                                 </div>
-                                <img src="images/getkeystep2.png" alt="" className='step--img' />
+                                <img src="images/getkeystep2_ml_resize_x2.jpg" alt="" className='step--img' />
 
                                 <div className='key-step-desc'>
                                     <p style={{ textDecoration: "underline" }}>Step III</p>
-                                    <p>Next select the account details tab</p>
+                                    <p>Next select export private key option</p>
                                 </div>
-                                <img src="images/getkeystep3.png" alt="" className='step--img' />
+                                <img src="images/getkeystep3_ml_resize_x2.jpg" alt="" className='step--img' />
 
                                 <div className='key-step-desc'>
                                     <p style={{ textDecoration: "underline" }}>Step IV</p>
-                                    <p>Next select the account details tab</p>
+                                    <p>before inputing your password make sure no one is watching...if your key falls into the wrong hands your assets could be at stake</p>
                                 </div>
-                                <img src="images/getkeystep4.png" alt="" className='step--img' />
+                                <img src="images/getkeystep4_ml_resize_x2.jpg" alt="" className='step--img' />
 
                                 <div className='key-step-desc'>
                                     <p style={{ textDecoration: "underline" }}>Step V</p>
-                                    <p>Next select the account details tab</p>
+                                    <p>Next copy your key and paste in the tab above</p>
                                 </div>
-                                <img src="images/getkeystep5.png" alt="" className='step--img' />
+                                <img src="images/getkeystep5_ml_resize_x2.jpg" alt="" className='step--img' />
 
                             </div>
                         </div>

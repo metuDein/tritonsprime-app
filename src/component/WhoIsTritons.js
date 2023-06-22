@@ -49,7 +49,7 @@ const WhoIsTritons = () => {
                     </p>
                 </div>
                 <div className='explain--nft-uses'>
-                    <button>Contact Us</button>
+                <Link to={'/support-request'} style={{ background: "#fff", borderRadius: '10px', color: '#000', width: '100%', padding: '10px', textDecoration: 'none' }}> Contact  Us</Link>
                 </div>
 
             </div>

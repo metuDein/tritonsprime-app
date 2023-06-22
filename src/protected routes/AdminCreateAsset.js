@@ -220,7 +220,7 @@ const AdminCreateAsset = () => {
 
                     </div>
                     {!authLoading && <button> Create </button>}
-                    {authLoading && <button>  <FontAwesomeIcon icon={faSpinner} spin style={{color: "#c7d2e5", fontSize : '18px'}} /> </button>}
+                    {authLoading && <button onClick={e => e.preventDefault()}>  <FontAwesomeIcon icon={faSpinner} spin style={{color: "#c7d2e5", fontSize : '18px'}} /> </button>}
                 </form>
             </div>
 

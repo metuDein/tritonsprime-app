@@ -48,7 +48,7 @@ const HowToBuyAnNFT = () => {
                     <p>You can pick from a variety of different Nft assets on TritonsPrime</p>
                     <img src="images/howtobuy1.png" alt="" />
                     <p>NFT marketplaces support primary sales or mints, but they are also a major driver of secondary sales. Marketplaces can differ by the blockchains they support, their fee structure, the types of NFTs they specialize in, and more.</p>
-                    <img src="https://assets-global.website-files.com/629a2d4e81096c5488a8a581/630947d1071acd08c066a1a9_MoXD-Apc43PGCxyWx2VhEhEWMSdXBe2OuchFgmUl8_LBy9W5fKsZOdGPuU9oqlxMm97U7RucAozAjVn9TT7QtoaXOJ1L5Y5qei5OnlPLAZLh7-pX45DNk_zyQTw2Z-Rko1hIVIPm9xVxPglNHj7SXRs.png" alt="" />
+                    <img src="images/howtobuy2.png" alt="" />
 
                     
                 </div>

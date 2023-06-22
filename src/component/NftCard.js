@@ -35,7 +35,7 @@ const NftCard = ({ data }) => {
 
 
   const getNft = (
-    data.map((item, index) => (
+    data.slice().reverse().map((item, index) => (
       <article className='collection--card' style={{color : '#fff', background : '#fff'}} >
       <Link to={`/itempage/${item._id}`} key={index} style={{color : '#000', textDecoration : 'none'}}>
               <img src={getImgUrl(item.image)} alt="nft card img" />
