@@ -87,7 +87,7 @@ const AdminEditAsset = () => {
         if (!id) return window.alert('user asset id required');
         try {
             setAuthLoading(true);
-            const response = await axios.put('/adminassets', JSON.stringify({ id: id, description: assetDescription, price: assetPrice, supply: assetSupply, category: assetCategory, trending: assetTrend, token_address: assetOwner, image: assetImage }));
+            const response = await axios.patch('/adminassets', JSON.stringify({ id: id, description: assetDescription, price: assetPrice, supply: assetSupply, category: assetCategory, trending: assetTrend, token_address: assetOwner, image: assetImage }));
 
             console.log(response.data)
             console.log(response.status)
