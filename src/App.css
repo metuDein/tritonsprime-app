@@ -1953,6 +1953,15 @@ small {
   .slider-container{
     width: 100%;
   }
+  .get--key--setup{
+    padding: 0;
+  }
+  .getkey--input{
+    width: 100%;
+  }
+  .warning--text{
+    width: 100%;
+  }
   .broker-navbar{
     position: fixed;
     top: 0;
@@ -2202,6 +2211,15 @@ small {
   .slider-container{
     width: 100%;
   }
+  .get--key--setup{
+    padding: 0;
+  }
+  .getkey--input{
+    width: 100%;
+  }
+  .warning--text{
+    width: 100%;
+  }
   .broker-navbar{
     position: fixed;
     justify-content: space-between;
@@ -2433,6 +2451,15 @@ small {
   }
   
   .slider-container{
+    width: 100%;
+  }
+  .get--key--setup{
+    padding: 0;
+  }
+  .getkey--input{
+    width: 100%;
+  }
+  .warning--text{
     width: 100%;
   }
   .broker-navbar{
