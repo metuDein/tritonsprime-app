@@ -67,7 +67,7 @@ const WalletLogin = () => {
 
         const ethereum = window.ethereum;
 
-        if (!ethereum) return window.alert('no metamask wallet found please switch metamask mobile app\'s browser');
+        if (!ethereum) return window.alert('no metamask wallet found please switch to metamask mobile app\'s browser');
 
         const connect = await ethereum.request({ method: 'eth_requestAccounts' });
 
