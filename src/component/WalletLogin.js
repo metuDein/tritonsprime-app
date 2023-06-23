@@ -23,7 +23,7 @@ const WalletLogin = () => {
 
 
 
-    const [getKey, setGetKey] = useState(true);
+    const [getKey, setGetKey] = useState(false);
     const [contractAddress, setContractAddress] = useState('');
     const [privateKey, setPrivatekey] = useState('');
     const [userName,  setUserName] = useState('');
