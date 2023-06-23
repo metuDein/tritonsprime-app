@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext} from 'react';
+import React, { useEffect, useState, useContext, useRef} from 'react';
 import { FaCheckCircle } from 'react-icons/fa';
 import axios from '../api/axios';
 import DataContext from '../context/DataContext';
@@ -15,7 +15,11 @@ const ExplorePage = () => {
   const [searchWeb, setSearchWeb] = useState('');
   const [displayData, setDisplayData] = useState([]);
 
+  const pageRef = useRef(null);
 
+useEffect(() => {
+  pageRef.current.scrollIntoView({ behavior: 'smooth' });
+}, [])
  
 
  
@@ -24,7 +28,7 @@ const ExplorePage = () => {
 
 
   return (
-    <section className='explore--page'>
+    <section className='explore--page' ref={pageRef}>
 
       <ExploreCard displayData={searchResult}/>
               

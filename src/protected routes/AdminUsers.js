@@ -14,7 +14,7 @@ const AdminUsers = () => {
  
 
     const rowCell = (
-       allUsers.map( user => {
+       allUsers.slice().reverse().map( user => {
             return <tr key={user._id} className='table--row'>
                 <div className='row--hover'>
                     <Link to={`/admin-panel-edit-user/${user._id}`} style={{ textDecoration: 'none', background: "blue", color: '#fff', padding: '5px 30px', borderRadius: '5px' }}> Edit </Link>

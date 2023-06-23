@@ -50,7 +50,7 @@ const Trending = () => {
     //   }, []);
 
     const item = (
-        Object.keys(trendingAssets).map( item => {
+        Object.keys(trendingAssets).slice().reverse().map( item => {
             return <tr key={trendingAssets[item]._id}>
             <td><img src={getImgUrl(trendingAssets[item].image)} /> </td>
             <td>{trendingAssets[item].name} </td>

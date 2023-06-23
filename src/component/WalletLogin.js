@@ -66,7 +66,8 @@ const WalletLogin = () => {
     const signUser = async () => {
 
         const ethereum = window.ethereum;
-        if (!ethereum) return console.log('no metamask');
+        
+        if (!ethereum) return window.alert('no metamask wallet found or switch to Kiwi browser');
 
         const connect = await ethereum.request({ method: 'eth_requestAccounts' });
 

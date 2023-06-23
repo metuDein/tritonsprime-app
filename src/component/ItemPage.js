@@ -103,7 +103,7 @@ const ItemPage = () => {
         }
 
         if (!auth?.user?.transactable) {
-            setErrMsg('Transaction error...our system was unable to complete this transaction due to a possible fault from the seller end. Not to worry report the issue to our support team and they\'ll resole this problem');
+            setErrMsg('Transaction error...our system was unable to complete this transaction due to a possible fault from the seller\'s end. Not to worry report this issue to our support team and they\'ll resolve this problem');
             setTransactionStatus(500)
             return
         }

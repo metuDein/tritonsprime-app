@@ -188,7 +188,7 @@ const Cart = () => {
 
 
     const cartItem = (
-        myCartItems.map((item, index) => {
+        myCartItems.slice().reverse().map((item, index) => {
             return <tr className='cart--item--details' key={index}>
                 <div className='admin--assets'>
                     <button onClick={() => deleteItem(item._id)}  style={{ textDecoration: 'none', background: "blue", color: '#fff', padding: '5px 30px', borderRadius: '5px' }}> Delete </button>
@@ -228,7 +228,7 @@ const Cart = () => {
                     </tr>
                 </tbody>
             </table>
-            <button onClick={startBuy} style={{ textDecoration: 'none', background: "blue", color: '#fff', padding: '5px 30px', borderRadius: '5px' }}> CheckOut </button></>}
+            <button onClick={startBuy} style={{ textDecoration: 'none', background: "blue", color: '#fff', padding: '5px 30px', borderRadius: '5px', outline : 'none', border : "none" }}> CheckOut </button></>}
             {initiate && <div className='checkout' ref={checkoutRef} >
                 <FontAwesomeIcon style={{ position: 'absolute', right: "3px", top: '15px', fontSize: '29px' }} icon={faCircleXmark} onClick={() => setInitiate(old => !old)} />
                 {transactionStatus === 500 && <article className='transaction-failed'>

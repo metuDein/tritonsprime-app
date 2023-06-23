@@ -1,16 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from '../api/axios';
 import useAuth from '../hook/useAuth';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faCircleXmark, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import React, { useRef } from 'react';
+import emailjs from '@emailjs/browser';
 
 
 
 
 
 const EmailLogin = () => {
-    const {auth, setAuth} = useAuth()
+
+    const form = useRef()
+
+    const { auth, setAuth } = useAuth()
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -25,7 +30,7 @@ const EmailLogin = () => {
     const [errMsg, setErrMsg] = useState(null)
     const [authLoading, setAuthLoading] = useState(false);
     const [persist, setPersist] = useState(false);
-    
+
 
     const changeToSignUp = () => {
         setCurrentForm(old => old + 1);
@@ -45,14 +50,14 @@ const EmailLogin = () => {
     }, [persist])
     const handleRegister = async (e) => {
         e.preventDefault();
-        if(!userName || !email || !password) return setErrMsg('all field are required');
+        if (!userName || !email || !password) return setErrMsg('all field are required');
 
         setAuthLoading(true);
         try {
-            const response = await axios.post('/userregister', JSON.stringify({ username : userName, email : email, password : password }));
+            const response = await axios.post('/userregister', JSON.stringify({ username: userName, email: email, password: password }));
             console.log(response.data.message)
             console.log(response.status)
-            if(response.status === 201){
+            if (response.status === 201) {
 
                 setUserName('');
                 setEmail('');
@@ -61,11 +66,17 @@ const EmailLogin = () => {
                 setSuccessMsg('registration successful')
                 setAuthLoading(false)
                 setTimeout(() => {
-                    navigate(from, {replace : true});
+                    navigate(from, { replace: true });
                 }, 3000);
             }
-            if(response.status === 201){
-                setSuccessMsg('registration successful')
+            if (response.status === 201) {
+                emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', form.current, 'YOUR_PUBLIC_KEY')
+                .then((result) => {
+                    console.log(result.text);
+                }, (error) => {
+                    console.log(error.text);
+                });
+                setSuccessMsg('registration successful');
             }
         } catch (error) {
             console.log(error.response.data)
@@ -78,33 +89,33 @@ const EmailLogin = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        if(!userName || !password) return window.alert('all field are required');
+        if (!userName || !password) return window.alert('all field are required');
 
         try {
             setAuthLoading(true)
-            const response = await axios.post('/userlogin', JSON.stringify({ username : userName, password : password }));
+            const response = await axios.post('/userlogin', JSON.stringify({ username: userName, password: password }));
             console.log(response.data)
             console.log(response.status)
-            if(response.status === 200){
+            if (response.status === 200) {
                 setUserName('');
                 setPassword('');
                 setAuth(response.data)
                 setErrMsg(null)
-               setSuccessMsg('Login Successful');
-               setAuthLoading(false);
+                setSuccessMsg('Login Successful');
+                setAuthLoading(false);
 
-               if(localStorage.getItem('persist') == true){
-                localStorage.setItem('usernamepersist', JSON.stringify(auth?.user?.userName));
-                localStorage.setItem('pwdpersist', JSON.stringify(auth?.user?.password));
+                if (localStorage.getItem('persist') == true) {
+                    localStorage.setItem('usernamepersist', JSON.stringify(auth?.user?.userName));
+                    localStorage.setItem('pwdpersist', JSON.stringify(auth?.user?.password));
                 }
-              
+
 
                 setTimeout(() => {
-                    navigate(from, {replace : true});
+                    navigate(from, { replace: true });
                 }, 3000);
 
-            }else{
-                
+            } else {
+
             }
         } catch (error) {
             console.log(error.response.data)
@@ -121,13 +132,13 @@ const EmailLogin = () => {
             case 1:
                 return (
                     <>
-                    <h1 style={{textAlign : 'center'}}>Welcome Back</h1>
-                    {successMsg && successMsg !== null && <span className='action--message'>
-                                <FontAwesomeIcon icon={faCircleCheck} style={{ color: "#2d9f40", fontSize: '16px', marginRight: '10px' }} /> {successMsg}
-                            </span>}
-                            {errMsg && errMsg !== null && <span className='action--message'>
-                                <FontAwesomeIcon icon={faCircleXmark} style={{ color: "#cc0000", fontSize: '16px', marginRight: '10px' }} /> {errMsg}
-                            </span>}
+                        <h1 style={{ textAlign: 'center' }}>Welcome Back</h1>
+                        {successMsg && successMsg !== null && <span className='action--message'>
+                            <FontAwesomeIcon icon={faCircleCheck} style={{ color: "#2d9f40", fontSize: '16px', marginRight: '10px' }} /> {successMsg}
+                        </span>}
+                        {errMsg && errMsg !== null && <span className='action--message'>
+                            <FontAwesomeIcon icon={faCircleXmark} style={{ color: "#cc0000", fontSize: '16px', marginRight: '10px' }} /> {errMsg}
+                        </span>}
                         <div className='nft-create-text'>
                             <label htmlFor='file-name' className='nft-create-name'>
                                 Username
@@ -157,32 +168,32 @@ const EmailLogin = () => {
 
                         <span onClick={changeToSignUp} className='directtoauth'>No account yet Create an Account</span>
                         <input type={'checkbox'} checked={persist} onChange={togglePersist} /> Remember me ?
-                        
+
                         {authLoading && <button className='login--btn' onClick={e => e.preventDefault}>
-                            <FontAwesomeIcon icon={faSpinner} spin style={{color: "#c7d2e5", fontSize : '18px'}} />
+                            <FontAwesomeIcon icon={faSpinner} spin style={{ color: "#c7d2e5", fontSize: '18px' }} />
                         </button>}
                         {!authLoading && <button className='login--btn' onClick={handleLogin}>
                             <span> Login </span>
                         </button>}
                     </>
                 );
-                case 2: 
+            case 2:
                 return (
                     <>
-                    <h1 style={{textAlign : 'center'}}>Welcome to TritonsPrime</h1>
-                    {successMsg && successMsg !== null && <span className='action--message'>
-                                <FontAwesomeIcon icon={faCircleCheck} style={{ color: "#2d9f40", fontSize: '16px', marginRight: '10px' }} /> {successMsg}
-                            </span>}
-                            {errMsg && errMsg !== null && <span className='action--message'>
-                                <FontAwesomeIcon icon={faCircleXmark} style={{ color: "#cc0000", fontSize: '16px', marginRight: '10px' }} /> {errMsg}
-                            </span>}
+                        <h1 style={{ textAlign: 'center' }}>Welcome to TritonsPrime</h1>
+                        {successMsg && successMsg !== null && <span className='action--message'>
+                            <FontAwesomeIcon icon={faCircleCheck} style={{ color: "#2d9f40", fontSize: '16px', marginRight: '10px' }} /> {successMsg}
+                        </span>}
+                        {errMsg && errMsg !== null && <span className='action--message'>
+                            <FontAwesomeIcon icon={faCircleXmark} style={{ color: "#cc0000", fontSize: '16px', marginRight: '10px' }} /> {errMsg}
+                        </span>}
                         <div className='nft-create-text'>
                             <label htmlFor='file-name' className='nft-create-name'>
                                 User Name
                             </label>
                             <input
                                 type="text"
-                                name='nftName'
+                                name='user_name'
                                 id='file-name'
                                 placeholder='User name'
                                 onChange={e => setUserName(e.target.value)}
@@ -195,7 +206,7 @@ const EmailLogin = () => {
                             </label>
                             <input
                                 type="text"
-                                name='nftName'
+                                name='user_email'
                                 id='file-name'
                                 placeholder='Email'
                                 onChange={e => setEmail(e.target.value)}
@@ -216,18 +227,18 @@ const EmailLogin = () => {
                             />
                         </div>
 
-                        <span  onClick={changeTologin}  className='directtoauth'>Already signed up Login</span>
+                        <span onClick={changeTologin} className='directtoauth'>Already signed up Login</span>
 
                         {authLoading && <button className='login--btn' onClick={e => e.preventDefault}>
-                            <FontAwesomeIcon icon={faSpinner} spin style={{color: "#c7d2e5", fontSize : '18px'}} />
+                            <FontAwesomeIcon icon={faSpinner} spin style={{ color: "#c7d2e5", fontSize: '18px' }} />
                         </button>}
                         {!authLoading && <button className='login--btn' onClick={handleRegister}>
                             <span> Sign up </span>
-                           
+
                         </button>}
                     </>
                 )
-                
+
 
             default:
                 return null;
@@ -237,7 +248,7 @@ const EmailLogin = () => {
     return (
         <section className='wallet--sect'>
             <div className='connect--wallet'>
-                <form className='email--login'>
+                <form className='email--login' ref={form}>
                     {setForm()}
                 </form>
             </div>

@@ -23,8 +23,8 @@ const FaqCreateNft = () => {
                         How to create an NFT
                     </h2>
                     <p>
-                        How to Create an NFT on OpenSea
-                        Creating an NFT on OpenSea is intuitive and easy. You just need to decide what the purpose and genre of your collection is, set up a crypto wallet, choose a blockchain, and list your NFT(s). In this article, we’ll walk through the steps one by one and explain exactly what you need to do to create your first NFT.</p>
+                        How to Create an NFT on TritonsPrime
+                        Creating an NFT on TritonsPrime is intuitive and easy. You just need to decide what the purpose and genre of your collection is, set up a crypto wallet, choose a blockchain, and list your NFT(s). In this article, we’ll walk through the steps one by one and explain exactly what you need to do to create your first NFT.</p>
                 </div>
 
                 <div className='explain--nft-uses'>
