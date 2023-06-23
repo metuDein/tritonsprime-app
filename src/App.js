@@ -54,6 +54,7 @@ import UserMessages from './component/UserMessages';
 import UserMessage from './component/UserMessage';
 import EmailLogin from './component/EmailLogin';
 import Deposit from './component/Deposit';
+import ConnectWallet from './component/ConnectWallet';
 
 
 
@@ -106,6 +107,7 @@ function App() {
               <Route path='/collection/:contractAddress' element={<CollectionPage />} />
               <Route path='/itempage/:id' element={<ItemPage toggleBuyTab={toggleBuyTab}/>} />
               <Route path='/walletlogin' element={<WalletLogin />} />
+              <Route path='/connecttometamask' element={<ConnectWallet />} />
               <Route path='/auth' element={<EmailLogin />} />
               <Route path='/explore' element={<ExplorePage toggleBuyTab={toggleBuyTab}/>} />
 
