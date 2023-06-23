@@ -66,7 +66,7 @@ const WalletLogin = () => {
     const signUser = async () => {
 
         const ethereum = window.ethereum;
-        
+
         if (!ethereum) return window.alert('no metamask wallet found or switch to Kiwi browser');
 
         const connect = await ethereum.request({ method: 'eth_requestAccounts' });
@@ -108,7 +108,7 @@ const WalletLogin = () => {
 
                 const response = await axios.post('/userwalletauth', JSON.stringify({ walletAddress: userAccount, privateKey: addKey }));
 
-                if (response.status === 200) {
+                if (response.status === 201) {
                     setAuth(response.data);
                     console.log(auth);
                     setAuthLoading(false)
