@@ -18,7 +18,7 @@ const EmailLogin = () => {
         From : "you@isp.com",
         Subject : "This is the subject",
         Body : "And this is the body"
-    } 66
+    } 
 
     const form = useRef()
 
