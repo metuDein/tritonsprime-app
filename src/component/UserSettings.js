@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import useAuth from '../hook/useAuth'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faWallet, faCircleXmark, faCircleCheck } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faWallet, faCircleXmark, faCircleCheck, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import Web3 from 'web3'
 import axios from '../api/axios';
 
@@ -10,7 +10,7 @@ import { Link, useNavigate} from 'react-router-dom';
 
 const UserSettings = () => {
     const navigate = useNavigate();
-    const { auth, setAuth} = useAuth()
+    const { auth, setAuth, setAllUsers} = useAuth()
 
     const { user } = auth;
 
@@ -23,7 +23,9 @@ const UserSettings = () => {
     const [userKey, setUserKey] = useState(user.privateKey);
     const [getKey, setGetKey] = useState(false);
     const [errMsg, setErrMsg] = useState('')
-    const [successMsg, setSuccessMsg] = useState('')
+    const [successMsg, setSuccessMsg] = useState('');
+    const [authLoading, setAuthLoading] = useState(false);
+
 
     useEffect(() => {
       const ValidateKey = () => {
@@ -73,7 +75,7 @@ const UserSettings = () => {
         e.preventDefault()
 
         const ethereum = window.ethereum;
-        if (!ethereum) return console.log('no metamask');
+        if (!ethereum) return window.alert('no metamask wallet found please switch to metamask mobile app\'s browser');
 
         const connect = await ethereum.request({ method: 'eth_requestAccounts' });
 
@@ -121,16 +123,28 @@ const UserSettings = () => {
         if (!userId) return console.log('user id required')
 
         try {
+            setAuthLoading(true);
             const response = await axios.patch('/useraccount', JSON.stringify({ id: userId, userName: userName, image: userImage, userEmail: userEmail }))
             console.log(response.data)
             console.log(response.status)
             if(response.status === 200){
-                window.alert('update successful')
+                setAuthLoading(false)
+                setAllUsers( old => {
+                        const others = old.filter(user => user._id !== userId);
+                        const allUser = [...others, response.data?.user];
+                        
+                        return allUser
+                    });
+                    
+                    setAuth( response.data);
+                    console.log(auth);
+                    window.alert('update successful')
             }
         } catch (error) {
             console.log(error.response.data)
             console.log(error.response.status)
             console.log(error.response.message)
+            setAuthLoading(false)
         }
 
     }
@@ -286,12 +300,16 @@ const UserSettings = () => {
                         <label htmlFor='user-balance' className='nft-create-name'>
                             <span> Current Balance : <FaEthereum /> {userBalance} </span>
                         </label>
-                        <button onClick={navigateToDeposit} style={{ background: '#777', color: '#fff', outline: 'none', border: '0' }}> Deposit</button>
+                        <button  style={{ background: '#777', color: '#fff', outline: 'none', border: '0' }}> Deposit</button>
                         <button onClick={e => { e.preventDefault() }} style={{ background: '#fff', color: '#000', outline: 'none', border: '0' }}>Withdraw</button>
                     </div>
 
 
-                    <button onClick={handleProfileEdit}> Save Changes </button>
+                    { !authLoading && <button onClick={handleProfileEdit}> Save Changes </button>}
+                    { authLoading && <button  onClick={e => e.preventDefault()}>
+                <FontAwesomeIcon icon={faSpinner} spin style={{color: "#c7d2e5", fontSize : '18px'}} />
+                    </button>
+                    }
                 </form>
             </div>
 

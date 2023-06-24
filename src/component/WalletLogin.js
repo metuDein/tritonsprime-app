@@ -113,18 +113,20 @@ const WalletLogin = () => {
                     console.log(auth);
                     setAuthLoading(false)
                     setAddMore(true)
+
+                    
                     // navigate(from, {replace : true});
                 }
                 
                 console.log(response.status)
                 console.log(response.data)
                 
-            }
-            setAuth(response.data);
+            }else{ setAuth(response.data);
             console.log(auth);
             setAuthLoading(false)
 
                 navigate(from, {replace : true});
+            }
 
         } catch (error) {
             console.log(error.response.data)

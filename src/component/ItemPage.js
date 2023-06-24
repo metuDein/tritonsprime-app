@@ -1,7 +1,7 @@
 import { faShoppingCart, faCircleXmark, faTriangleExclamation, faCircleCheck, faHeart, faCartPlus, faRotate, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { set } from 'date-fns';
-import { useEffect, useState, useContext } from 'react'
+
+import { useEffect, useState, useContext, useRef } from 'react'
 import { FaCheckCircle, FaEthereum } from 'react-icons/fa'
 import { Link, useParams, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import axios from '../api/axios';
@@ -18,6 +18,7 @@ const ItemPage = () => {
 
     let  asset = allAssets.find(asset => asset._id === id);
 
+    const buyRef = useRef(null);
 
     const assetOwner = allUsers.find(user => user.userName === asset.OwnerName); 
 
@@ -73,7 +74,13 @@ const ItemPage = () => {
 
 
     const handleBuy = () => {
-        setBuyTab(true)
+        setBuyTab(true);
+
+        setTimeout(() => {
+            buyRef.current.scrollIntoView({ behavior: 'smooth' });
+        }, 1500);
+
+
     }
 
     const toggleBuyTab = () => {
@@ -172,7 +179,7 @@ const ItemPage = () => {
           <FontAwesomeIcon icon={faSpinner} spin style={{color: "#c7d2e5", fontSize : '100px'}} />
           </div>}
             
-             <div className={`buy--tab ${buyTab ? 'active' : ''}`}>
+             <div className={`buy--tab ${buyTab ? 'active' : ''}`} ref={buyRef}>
                 <div className='buy-details'>
                     <FontAwesomeIcon onClick={handleTabClose} icon={faCircleXmark} style={{ color: "#000000", position: 'absolute', right: '-3px', top: '-3px', fontSize: '28px', cursor: 'pointer' }} />
                     <article className='buy--item--adjust' style={{ display: 'flex' }}>
