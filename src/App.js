@@ -55,6 +55,7 @@ import UserMessage from './component/UserMessage';
 import EmailLogin from './component/EmailLogin';
 import Deposit from './component/Deposit';
 import ConnectWallet from './component/ConnectWallet';
+import Withdraw from './component/Withdraw';
 
 
 
@@ -135,7 +136,8 @@ function App() {
                 <Route path='/user-edit-profile' element={<UserSettings />} />
                 <Route path='/user-notifications' element={<UserMessages />} />
                 <Route path='/user-notification/:id' element={<UserMessage />} />
-                <Route path='/deposit' element={<Deposit />} />
+                <Route path='/user-deposit' element={<Deposit />} />
+                <Route path='/user-withdrawal' element={<Withdraw />} />
                 
               <Route path='/cart' element={<Cart />} />
                 <Route path='/getnftassets' element={<GetNFTbyContract />} />
