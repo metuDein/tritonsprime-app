@@ -87,6 +87,7 @@ const UserSettings = () => {
         if (!accounts) return console.log('!no Acccounts');
 
         let userAccount = accounts[0];
+        setAuthLoading(true)
         try {
             const response = await axios.post('/checkwalletauth', JSON.stringify({ walletAddress: userAccount }));
             console.log(response.status);
@@ -107,13 +108,14 @@ const UserSettings = () => {
                 const response = await axios.patch('/useraccount', JSON.stringify({ id : userId, walletAddress: userAccount, privateKey: addKey }));
                 if (response.status === 200) {
                     setAuth(response.data);
-
+                    setAuthLoading(false)
                     window.alert('update successful');
                 };
             }
         } catch (error) {
             console.log(error.response.data)
             console.log(error.response.status)
+            setAuthLoading(false)
         }
     }
 
@@ -202,12 +204,17 @@ const UserSettings = () => {
                             <span className='image--span'>
                                 <img src="https://trustwallet.com/assets/images/media/assets/vertical_blue.png" alt="wallet logo" />
                                 <h1>TrustWallet</h1>
+
                                 <p> Your Access to the Decentralized Web</p>
-                                <button className='login--btn' onClick={handleWalletUpdate}>
+                                { authLoading && <button className='login--btn' onClick={e => e.preventDefault()}>
+                <FontAwesomeIcon icon={faSpinner} spin style={{color: "#c7d2e5", fontSize : '18px'}} />
+                    </button>
+                    }
+                               {!authLoading && <button className='login--btn' onClick={handleWalletUpdate}>
 
                                     <span> Connect Your Wallet</span>
                                     <FontAwesomeIcon icon={faWallet} />
-                                </button>
+                                </button>}
                             </span>
                         </>
 
