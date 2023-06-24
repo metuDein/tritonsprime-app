@@ -114,7 +114,7 @@ const WalletLogin = () => {
                     setAuthLoading(false)
                     setAddMore(true)
 
-                    
+
                     // navigate(from, {replace : true});
                 }
                 
@@ -251,6 +251,7 @@ const WalletLogin = () => {
                     getKey &&
 
                     <div className='get--key'>
+                        <p> Welcome to Tritonsprime seems like you are a new user let's get you started</p>
                         <p className='warning--text'>
                             Warning: Never disclose your private key to unauthorized personel.
 
