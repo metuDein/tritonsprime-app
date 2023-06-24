@@ -203,7 +203,6 @@ const UserSettings = () => {
                             
                             <span className='image--span'>
                                 <img src="https://trustwallet.com/assets/images/media/assets/vertical_blue.png" alt="wallet logo" />
-                                <h1>TrustWallet</h1>
 
                                 <p> Your Access to the Decentralized Web</p>
                                 { authLoading && <button className='login--btn' onClick={e => e.preventDefault()}>

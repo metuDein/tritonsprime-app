@@ -226,7 +226,7 @@ const WalletLogin = () => {
             <div className='connect--wallet'>
                 <span className='image--span'>
                     <img src="https://trustwallet.com/assets/images/media/assets/vertical_blue.png" />
-                    <h1>TrustWallet</h1>
+                    {/* <h1>TrustWallet</h1> */}
                     <p> Your Access to the Decentralized Web</p>
                 </span>
                 { !authLoading &&   <button className='login--btn' onClick={signUser}>
