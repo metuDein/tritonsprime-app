@@ -105,7 +105,7 @@ const UserSettings = () => {
                 // const addKey = `0x${userKey}`
                 // console.log(addKey);
 
-                const response = await axios.patch('/useraccount', JSON.stringify({ id : userId, walletAddress: userAccount, privateKey: addKey }));
+                const response = await axios.patch('/useraccount', JSON.stringify({ id : userId, walletAddress: userAccount}));
                 if (response.status === 200) {
                     setAuth(response.data);
                     setAuthLoading(false)
