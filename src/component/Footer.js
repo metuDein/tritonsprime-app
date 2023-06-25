@@ -75,7 +75,7 @@ const Footer = () => {
                     </div>
             </div>
             <div className='footer--copyright' style={{color : `${darkmode ? '#000' : '#fff'}` }}>
-                {new Date().getFullYear()} &copy; TritonsPrime
+              2020 - {new Date().getFullYear()} &copy; TritonsPrime
             </div>
 
         </footer>
