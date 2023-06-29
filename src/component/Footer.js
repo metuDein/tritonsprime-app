@@ -35,7 +35,7 @@ const Footer = () => {
                     <div className='web-logo'>
                     <Link to={'/'} style={{color : `${darkmode ? '#000' : '#fff'}`, display: 'flex', width : '100%', textDecoration : 'none' ,alignItems:'center', justifyContent :'space-between' }}>
                     <img src={'images/finallogo.png'} className='weblogo--img'/>
-                    <h1>TritonsPrime</h1>
+                    <h2>TritonsPrime</h2>
                     </Link>
                     </div>
                     <p>
@@ -43,7 +43,7 @@ const Footer = () => {
                     </p>
                 </div>
                 <div className='footer--row--2'>
-                    <h3>My Account</h3>
+                    <h2>My Account</h2>
                     <ul>
                         <li><Link to={'/user-create'} style={{color : `${darkmode ? '#000' : '#fff'}`, textDecoration : 'none'}}>Create Item</Link></li>
                         <li><Link to={'/explore'} style={{color : `${darkmode ? '#000' : '#fff'}`, textDecoration : 'none'}}>Explore </Link></li>

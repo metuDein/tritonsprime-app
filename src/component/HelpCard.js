@@ -5,7 +5,7 @@ const HelpCard = ({ title, body, src}) => {
     <article className='help--card'>
     <img className='help--tab--img' src={src} alt="metamask" />
 
-    <h1>{title}</h1>
+    <h2>{title}</h2>
     <p>{body}</p>
 </article>
   )

@@ -9,13 +9,13 @@ const HomePage = ({bannerData}) => {
   return (
     <>
     <OpeningSection bannerData={bannerData}/>
-    <h1 className='title'> Trending</h1>
+    <h2 className='title'> Trending</h2>
     <Trending />
-    <h1 className='title'>Collections</h1>
+    <h2 className='title'>Collections</h2>
     <CheckApi bannerData={bannerData}/>
-    <h1 className='title'> Features </h1>
+    <h2 className='title'> Features </h2>
     <HelpTab />
-    <h1 className='title'> Quick Intro</h1>
+    <h2 className='title'> Quick Intro</h2>
     <QuickTut />
     </>
   )

@@ -342,9 +342,11 @@ a{
   object-fit: contain;
 }
 
-.web-logo.nav h1 {
+.web-logo.nav p {
   font-size: 20px;
   font-weight: 500;
+  margin: 5px 0;
+
 }
 
 .web-logo {
@@ -360,7 +362,7 @@ a{
   object-fit: contain;
 }
 
-.web-logo h1 {
+.web-logo h2 {
   margin: 0;
   flex-basis: 80%;
 }
@@ -471,7 +473,7 @@ a{
   right: 2px;
 }
 
-.connect-wallet h3 {
+.connect-wallet h2 {
   font-size: 16px;
   font-weight: 200;
   border-right: 1px solid #777;
@@ -510,7 +512,7 @@ a{
   flex-direction: column;
 }
 
-.help--card h1 {
+.help--card h2 {
   margin-top: 5px;
   margin-bottom: 10px;
   font-size: 16px;
@@ -607,7 +609,7 @@ a{
 }
 
 
-.footer--row--2 h3,
+.footer--row--2 h2,
 .footer--row--3 h3,
 .footer--row--4 h3,
 .footer--row--5 h3 {
@@ -2006,10 +2008,12 @@ small {
     width: 100px;
   }
 
-  .web-logo.nav h1{
+  .web-logo.nav p{
     /* display: none; */
     font-size: 13px;
     font-weight: 200;
+    margin: 5px 0;
+
   }
   .desc-btn{
     display: flex;
@@ -2262,10 +2266,11 @@ small {
     width: 100px;
   }
 
-  .web-logo.nav h1{
+  .web-logo.nav p{
     /* display: none; */
     font-size: 13px;
     font-weight: 200;
+    margin: 5px 0;
   }
   .desc-btn{
     display: flex;
@@ -2504,10 +2509,11 @@ small {
     width: 100px;
   }
 
-  .web-logo.nav h1{
+  .web-logo.nav p{
     /* display: none; */
     font-size: 17px;
     font-weight: 200;
+    margin: 5px 0;
   }
   .desc-btn{
     display: flex;
