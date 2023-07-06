@@ -1957,6 +1957,73 @@ small {
 .nft-create-text{
   color: #fff;
 }
+
+
+.blog-page{
+  padding: 40px 70px;
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+
+}
+
+.recent--posts{
+  display: flex;
+  align-items: center;
+  max-width: 100%;
+  overflow-x: scroll;
+  flex-shrink: 0;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #777;
+}
+.recent--posts>a{
+  border: 1px solid #777;
+  padding: 5px;
+  border-radius: 5px;
+  margin: 0 10px 10px 0;
+  align-self: flex-start;
+}
+.recent--posts::-webkit-scrollbar{
+  display: none;
+}
+
+.blog--page--title{
+  font-size: 35px;
+  margin-bottom: 30px;
+}
+.recent--title{
+  font-weight: 300;
+  font-size: 30px;
+}
+
+.preview--title{
+  margin: 0;
+}
+.preview--body{
+  margin:0;
+}
+.preview--body.list{
+  margin: 10px 0 0 0 ;
+}
+.more--post{
+  width: 100%;
+  text-align: left;
+  margin-bottom: 40px;
+}
+.more--post>a{
+  display: block;
+  padding: 10px;
+  border: 1px solid #777;
+  border-radius: 5px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.write-review{
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
+}
 /* ------------add responsive----------  */
 
 @media screen and (max-width : 375px) {
@@ -1978,6 +2045,12 @@ small {
   }
   .action--message{
     font-size: 13px;
+  }
+  .blog-page{
+    padding: 10px;
+  }
+  .write-review{
+    width: 70%;
   }
   
   .slider-container{

@@ -57,6 +57,9 @@ import Deposit from './component/Deposit';
 import ConnectWallet from './component/ConnectWallet';
 import Withdraw from './component/Withdraw';
 import TermsAndCondition from './component/TermsAndCondition';
+import BlogLIst from './component/BlogLIst';
+import BlogPost from './component/BlogPost';
+import AdminWritePost from './protected routes/AdminWritePost';
 
 
 
@@ -112,6 +115,8 @@ function App() {
               <Route path='/connecttometamask' element={<ConnectWallet />} />
               <Route path='/auth' element={<EmailLogin />} />
               <Route path='/explore' element={<ExplorePage toggleBuyTab={toggleBuyTab}/>} />
+              <Route path='/blog' element={<BlogLIst/>} />
+              <Route path='/blog-post/:id' element={<BlogPost/>} />
 
               {/* faq sections */}
               <Route path='/' element={<FaqDept />} >
@@ -149,8 +154,8 @@ function App() {
                 <Route path='/admin-panel' element={<AdminPanel />} />
                 <Route path='/admin-panel-users' element={<AdminUsers />} />
                 <Route path='/admin-panel-assets' element={<AdminViewAssets />} />
-                <Route path='/admin-panel-create-user' element={<AdminCreateUser />} />
                 <Route path='/admin-panel-create-asset' element={<AdminCreateAsset />} />
+                <Route path='/admin-write-post' element={<AdminWritePost />} />
                 <Route path='/admin-panel-edit-user/:id' element={<AdminEditUser />} />
                 <Route path='/admin-panel-edit-asset/:id' element={<AdminEditAsset />} />
                 {/* <Route path='/admin-panel-user/:id' element={<AdminViewUser />} /> */}

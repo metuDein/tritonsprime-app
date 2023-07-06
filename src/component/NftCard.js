@@ -42,7 +42,7 @@ const NftCard = ({ data }) => {
               <h2>{`${item.name}`}</h2>
               <span className='category'> {(item.categories).toUpperCase()} </span> 
               <div className='collection--desc'>
-                  <h3 style={{textAlign : 'center'}}>{item.price} <FaEthereum /></h3>
+                  <h3 style={{textAlign : 'center'}}>{item.price} ETH <FaEthereum /></h3>
                   
 
               </div>

@@ -7,6 +7,9 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import DataContext from '../context/DataContext';
 import useAuth from '../hook/useAuth';
 
+import { storage } from '../firebase';
+import { uploadBytes, listAll, ref, getDownloadURL, } from 'firebase/storage';
+
 const UserEditAsset = () => {
 
     const { id } = useParams();
@@ -27,6 +30,7 @@ const UserEditAsset = () => {
 
     const [assetName, setAssetName] = useState(aAsset.name);
     const [assetImage, setAssetImage] = useState(aAsset.image);
+    const [uploadImage, setUploadImage] = useState('');
     const [assetPrice, setAssetPrice] = useState(aAsset.price);
     const [assetSupply, setAssetSupply] = useState(aAsset.block_number_minted);
     const [assetOwner, setAssetOwner] = useState(aAsset.OwnerName);
@@ -34,6 +38,8 @@ const UserEditAsset = () => {
     const [assetDescription, setAssetDescription] = useState(aAsset.description);
     const [assetCategory, setAssetCategory] = useState(aAsset.categories);
     const [authLoading, setAuthLoading] = useState(false);
+    const listRef = ref(storage, "nftimages/")
+
 
 
 
@@ -43,6 +49,8 @@ const UserEditAsset = () => {
 
         const reader = new FileReader();
         reader.readAsDataURL(e.target.files[0]);
+
+        setUploadImage(e.target.files[0])
 
 
         reader.onload = () => {
@@ -89,8 +97,19 @@ const UserEditAsset = () => {
         e.preventDefault();
 
         if (!id) return window.alert('user asset id required');
-        try{
+
+        let uploadImg;
+
+       if (uploadImage) {
+         try{
             setAuthLoading(true)
+
+            const imageRef = ref(storage, `nftimages/${uploadImage?.name}`)
+            const snapshot = await uploadBytes(imageRef, uploadImage);
+            const url = await getDownloadURL(snapshot.ref);
+            uploadImg = url;
+            console.log(uploadImg);
+
         const response = await axios.put('/userassets', JSON.stringify({ id: id, desc : assetDescription, price: assetPrice, supply: assetSupply, category: assetCategory, image: assetImage, blockchain : assetNetwork}));
 
         console.log(response.data)
@@ -116,7 +135,34 @@ const UserEditAsset = () => {
         window.alert('update failed')
     }
 
+}else{
+    try{
+        setAuthLoading(true)
+    const response = await axios.put('/userassets', JSON.stringify({ id: id, desc : assetDescription, price: assetPrice, supply: assetSupply, category: assetCategory, image: assetImage, blockchain : assetNetwork}));
 
+    console.log(response.data)
+    console.log(response.status)
+    console.log(response.message)
+    if(response.status === 200) {
+        setAuthLoading(false);
+
+        setAllAssets(old => {
+            const others = old.filter(item => item._id !== id);
+            const allAsset = [...others, response.data.result];
+
+            return allAsset;
+        })
+        
+        window.alert('update successful');
+    }
+    
+    if(response.status === 400) window.alert('update failed')
+}catch(error){
+    console.log(error.response.status)
+    console.log(error.response.message)
+    window.alert('update failed')
+}
+}
 
     }
 

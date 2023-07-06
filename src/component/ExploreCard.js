@@ -37,7 +37,7 @@ const ExploreCard = ({displayData}) => {
                         <img src={getImgUrl(item.image)} alt="nft card img" />
                         <h2>{`${item.name}`}</h2>
                         <div className='collection--desc'>
-                            <h3 style={{textAlign : 'center'}}>{item.price} <FaEthereum /> </h3>
+                            <h3 style={{textAlign : 'center'}}>{item.price} ETH <FaEthereum /> </h3>
                             <span className='category'> {(item.categories).toUpperCase()} </span> 
                         </div>
                 </Link>

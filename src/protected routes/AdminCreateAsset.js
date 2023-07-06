@@ -5,6 +5,9 @@ import { faImage, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { Link, useNavigate } from 'react-router-dom';
 import DataContext from '../context/DataContext';
 import { FaEthereum } from 'react-icons/fa';
+import { storage } from '../firebase';
+import { ref, uploadBytes, listAll, getDownloadURL } from 'firebase/storage';
+
 
 
 const AdminCreateAsset = () => {
@@ -23,12 +26,17 @@ const AdminCreateAsset = () => {
     const [blockChain, setBlockChain] = useState('');
     const [Category, setCategory] = useState('');
     const [authLoading, setAuthLoading] = useState(false);
+    const [uploadImage, setUploadImage] = useState('');
+    const listRef = ref(storage, "nftimages/");
+
 
     
 
     const handleImageChange = (e) => {
         console.log(e);
 
+
+        setUploadImage(e.target.files[0]);
         const reader = new FileReader();
         reader.readAsDataURL(e.target.files[0]);
         reader.onload = () => {
@@ -77,8 +85,28 @@ const AdminCreateAsset = () => {
 
         }else{
             try {
+
+                let uploadImg;
+                const imageRef = ref(storage, `nftimages/${uploadImage.name}`)
+
                 setAuthLoading(true)
-                const response =  await axios.post('/adminassets', JSON.stringify({assetName : nftName, assetImage : nftImage, assignTo : owner, assetQuantity : supply, assetPrice : price,  assetNetwork : blockChain, description : description, assetCategory : Category }), {
+                const res = await listAll(listRef);
+                const duplicate = res.items.find((item) => item.name === uploadImage?.name);
+                if (duplicate) {
+                    window.alert("This asset already exists");
+                    setAuthLoading(false);
+                    return;
+                }
+    
+                const snapshot = await uploadBytes(imageRef, uploadImage);
+                const url = await getDownloadURL(snapshot.ref);
+                uploadImg = url;
+                console.log(uploadImg);
+
+                if (!uploadImg) return window.alert("asset creation failed");
+
+                setAuthLoading(true)
+                const response =  await axios.post('/adminassets', JSON.stringify({assetName : nftName, assetImage : uploadImg, assignTo : owner, assetQuantity : supply, assetPrice : price,  assetNetwork : blockChain, description : description, assetCategory : Category }), {
                     headers : {
                         "Content-Type" : 'application/json',
                     },
