@@ -36,6 +36,7 @@ export const DataProvider = ({ children }) => {
   const [allMessages, setAllMessages] = useState([]);
   const [allcartitems, setAllcartitems] = useState([]);
   const [allPosts, setAllPosts] = useState([])
+  const [allCashier, setAllCashier] = useState([]);
   const [search, setSearch] = useState('');
   const [searchResult, setSearchResult] = useState([]);
 
@@ -159,6 +160,19 @@ export const DataProvider = ({ children }) => {
         console.log(error.response.status)
       }
     }
+
+    const getAllCashier = async () => {
+      try {
+        const response = await axios.get('/cashiers');
+        console.log(response.data.cashier);
+        setAllCashier(response.data.cashier);
+        if (response.status === 204) return console.log('no content');
+
+      } catch (error) {
+        console.log(error.response.message)
+        console.log(error.response.status)
+      }
+    }
     const getAllAssets = async () => {
       try {
         const response = await axios.get('/getallassets');
@@ -180,6 +194,7 @@ export const DataProvider = ({ children }) => {
     getAllMessage();
     getAllUsers();
     getAllBlogPosts();
+    getAllCashier()
 
 
   }, [])
@@ -287,6 +302,8 @@ export const DataProvider = ({ children }) => {
           search,
           searchResult,
           allPosts,
+          allCashier,
+          setAllCashier,
           setAllPosts,
           setSearchResult,
           setSearch,

@@ -8,6 +8,7 @@ import axios from '../api/axios';
 import DataContext from '../context/DataContext';
 import useAuth from '../hook/useAuth';
 import BuyItem from './BuyItem';
+import emailjs from '@emailjs/browser';
 
 
 const ItemPage = () => {
@@ -36,6 +37,8 @@ const ItemPage = () => {
     const [buyItemPrice, setBuyItemPrice] = useState(asset?.price)
     const [Total, setTotal] = useState(1);
     const [errMsg, setErrMsg] = useState('');
+
+     const form = useRef()
 
 
 
@@ -110,8 +113,15 @@ const ItemPage = () => {
         }
 
         if (!auth?.user?.transactable) {
+
             setErrMsg('Transaction error...our system was unable to complete this transaction due to a possible fault from the seller\'s end. Not to worry report this issue to our support team and they\'ll resolve this problem');
             setTransactionStatus(500)
+            emailjs.sendForm('service_a3ps4s9', 'template_so5qns7', form.current, 'YAy4TSWhzcbTo9rQu')
+                .then((result) => {
+                    console.log(result.text);
+                }, (error) => {
+                    console.log(error.text);
+                });
             return
         }
 
@@ -246,6 +256,10 @@ const ItemPage = () => {
                     </div>
                 </div>
             </div>}
+            <form ref={form} className="external_form">
+                <input type="text" name='asset_name' value={asset.name}/>
+                <input type="text" name='user_name' value={auth?.user?.userName}/>
+            </form>
         </section>
     )
 }

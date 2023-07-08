@@ -1,19 +1,26 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useRef} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import useAuth from '../hook/useAuth';
 import axios from '../api/axios';
+import emailjs from '@emailjs/browser';
+import { storage } from '../firebase';
+import { ref, uploadBytes, listAll, getDownloadURL } from 'firebase/storage';
+
 
 const SupportRequest = () => {  
     const {auth}  = useAuth()
     
     const [subject, setSubject] =  useState('')
     const [userName, setUserName] = useState(auth?.user?.userName || '')
+    const [userEmail, setUserEmail] = useState(auth?.user?.userEmail || '')
     const [address, setAddress ] =  useState(auth?.user?.contractAddress || '');
     const [assetName, setAssetName] =  useState('')
     const [body, setBody] =  useState('')
     const [compliantImage, setCompliantImage] =  useState('');
     const [authLoading, setAuthLoading] = useState(false);
+    const form = useRef()
+    const [uploadImage, setUploadImage] = useState('')
 
 
     const handleImageChange = (e) => {
@@ -21,6 +28,7 @@ const SupportRequest = () => {
 
         const reader = new FileReader();
         reader.readAsDataURL(e.target.files[0]);
+        setUploadImage(e.target.files[0])
         reader.onload = () => {
             console.log(reader.result);
             setCompliantImage(reader.result);
@@ -35,6 +43,9 @@ const SupportRequest = () => {
     const handleNameChange = (e) => {
         setUserName(e.target.value);
     }
+    const handleEmailChange = (e) => {
+        setUserEmail(e.target.value);
+    }
     const handleTitleChange = (e) => {
         setSubject(e.target.value);
     }
@@ -47,17 +58,32 @@ const SupportRequest = () => {
 
     const handleRequestSubmit = async (e) => {
         e.preventDefault();
+        let uploadImg;
         
-        if(!subject || !address || !body || !userName) return window.alert('error one or more required fields are empty')
+        if(!subject || !address || !body || !userName || !userEmail) return window.alert('error one or more required fields are empty')
         try {
             setAuthLoading(true);
-            const response = await axios.post('/supportrequest', JSON.stringify({ image : compliantImage, itemName : assetName, title : subject, body : body, senderAddress : address, sendername : userName}));
+
+
+            const imageRef = ref(storage, `supportimages/${uploadImage?.name}`)
+            const snapshot = await uploadBytes(imageRef, uploadImage);
+            const url = await getDownloadURL(snapshot.ref);
+            uploadImg = url;
+
+            const response = await axios.post('/supportrequest', JSON.stringify({ image : uploadImg, itemName : assetName, title : subject, body : body, senderAddress : address, sendername : userName}));
 
             console.log(response.data)
             console.log(response.status)
 
             if(response.status === 200){
+
                 setAuthLoading(false)    
+                emailjs.sendForm('I68bpYi46GTIYYCzW', 'template_7pn170c', form.current, 'I68bpYi46GTIYYCzW')
+                .then((result) => {
+                    console.log(result.text);
+                }, (error) => {
+                    console.log(error.text);
+                });
                 return window.alert('request successful')
             }
 
@@ -72,14 +98,20 @@ const SupportRequest = () => {
   return (
     <section className="create-nft">
             <div className='create-nft-form'>
-                <form onSubmit={handleRequestSubmit}>
+                <form onSubmit={handleRequestSubmit} ref={form}>
                     <h1>Issue a Compliant </h1>
                     <small><span>*</span> required</small>
                     <div className='nft-create-text'>
                         <label htmlFor='file-name' className='nft-create-name'>
                             Account Name<span>*</span>
                         </label>
-                        <input type="text" id='file-name' placeholder='User name' onChange={handleNameChange} value={userName}/>
+                        <input type="text" name='user_name' id='file-name' placeholder='User name' onChange={handleNameChange} value={userName}/>
+                    </div>
+                    <div className='nft-create-text'>
+                        <label htmlFor='file-email' className='nft-create-name'>
+                            Email<span>*</span>
+                        </label>
+                        <input type="text" name='user_email' id='file-email' placeholder='your email' onChange={handleEmailChange} value={userEmail}/>
                     </div>
                     <div className='nft-create-text'>
                         <label htmlFor='file-owner' className='nft-create-name'>

@@ -77,7 +77,7 @@ const EmailLogin = () => {
                 }, 3000);
             }
             if (response.status === 201) {
-                emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', form.current, 'YOUR_PUBLIC_KEY')
+                emailjs.sendForm('service_a3ps4s9', 'template_jydlhru', form.current, 'YAy4TSWhzcbTo9rQu')
                 .then((result) => {
                     console.log(result.text);
                 }, (error) => {

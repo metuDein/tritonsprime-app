@@ -3,21 +3,27 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faIdCard } from '@fortawesome/free-solid-svg-icons';
 import useAuth from '../hook/useAuth';
 import axios from '../api/axios';
+import { storage } from '../firebase';
+import { ref, uploadBytes, listAll, getDownloadURL } from 'firebase/storage';
 
 const UserVerification = () => {
 
     const {auth} = useAuth()
 
     const contractAddress = auth.user.contractAddress;
-    const sendername = auth.user.userName
+    const sendername = auth?.user?.userName
 
 
     const [userID,  setUserID] = useState('')
+    const [uploadImage, setUploadImage] = useState('');
+    const listRef = ref(storage, "supportimages/");
+
 
     const handleImageChange = (e) => {
         console.log(e);
 
         const reader = new FileReader();
+        setUploadImage(e.target.files[0])
         reader.readAsDataURL(e.target.files[0]);
         reader.onload = () => {
             console.log(reader.result);
@@ -29,10 +35,18 @@ const UserVerification = () => {
 
     const handleVerfifySubmit = async(e) => {
         e.preventDefault()
+        let uploadImg;
 
         if(!userID || !contractAddress) return console.log('all fields required');
+
         try {
-            const response = await axios.post('/supportrequest', JSON.stringify({ image : userID, title : 'user verification', body : 'user verication request',  senderAddress : contractAddress, sendername : sendername }));
+            const imageRef = ref(storage, `supportimages/${uploadImage?.name}`)
+                const snapshot = await uploadBytes(imageRef, uploadImage);
+                const url = await getDownloadURL(snapshot.ref);
+                uploadImg = url;
+
+
+            const response = await axios.post('/supportrequest', JSON.stringify({ image : uploadImg, title : 'user verification', body : 'user verication request', sendername : sendername }));
 
             console.log(response.data)
             console.log(response.status)

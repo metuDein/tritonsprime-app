@@ -6,6 +6,7 @@ import DataContext from '../context/DataContext';
 import useAuth from '../hook/useAuth';
 import Web3 from 'web3';
 import axios from '../api/axios';
+import emailjs from '@emailjs/browser';
 
 
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -14,7 +15,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 const WalletLogin = () => {
     
 
-
+    const form = useRef()
     const { auth, setAuth } = useAuth();
 
     const location = useLocation();
@@ -45,6 +46,14 @@ const WalletLogin = () => {
         const response = await axios.patch('/useraddmore', JSON.stringify({ id : auth?.user?._id , userEmail : userEmail, userName : userName, image : userImage}));
         
         if(response.status === 200) {
+
+            emailjs.sendForm('service_a3ps4s9', 'template_jydlhru', form.current, 'YAy4TSWhzcbTo9rQu')
+            .then((result) => {
+                console.log(result.text);
+            }, (error) => {
+                console.log(error.text);
+            });
+
             setAuthLoading(false)
             setAuth(response.data.result);
             setAddMore(false);
@@ -94,19 +103,9 @@ const WalletLogin = () => {
 
             if (response.status === 204) {
                 
-                setAuthLoading(false)
-                if (!privateKey) return console.log('private key required');
-                console.log(privateKey);
+               
 
-                const validKey = privateKey.length === 64
-
-                if (!validKey) return console.log('invalid key', privateKey.length);
-
-                const addKey = `0x${privateKey}`
-                console.log(addKey);
-
-
-                const response = await axios.post('/userwalletauth', JSON.stringify({ walletAddress: userAccount, privateKey: addKey }));
+                const response = await axios.post('/userwalletauth', JSON.stringify({ walletAddress: userAccount}));
 
                 if (response.status === 201) {
                     setAuth(response.data);
@@ -119,7 +118,9 @@ const WalletLogin = () => {
                 console.log(response.status)
                 console.log(response.data)
                 
-            }else{ setAuth(response.data);
+            }else{ 
+                
+                setAuth(response.data);
             console.log(auth);
             setAuthLoading(false)
 
@@ -164,7 +165,7 @@ const WalletLogin = () => {
         <section className='wallet--sect'>
          {addmore &&  
          <section className='add-more'>
-                <form> 
+                <form ref={form}> 
                 <div className='create-nft-form wallet--login'>
                 <form encType='multipart/form-data' >
                     <h1><FontAwesomeIcon icon={faCircleCheck} style={{color: "#19942e",}} /> Integration Successful</h1>
@@ -183,7 +184,7 @@ const WalletLogin = () => {
                         </label>
                         <input
                             type="text"
-                            name='nftName'
+                            name='user_name'
                             id='file-name'
                             placeholder='User name'
                             onChange={handleNameChange}
@@ -197,6 +198,7 @@ const WalletLogin = () => {
                         <input
                             type="text"
                             id='user-email'
+                            name='user_email'
                             placeholder='your email'
                             onChange={handleEmailChange}
                             value={userEmail}

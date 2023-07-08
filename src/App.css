@@ -2024,6 +2024,19 @@ small {
   margin: 0 auto;
   text-align: center;
 }
+
+.external_form{
+  position: absolute;
+  left: -200%;
+
+}
+
+.deposit--status{
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+}
 /* ------------add responsive----------  */
 
 @media screen and (max-width : 375px) {
