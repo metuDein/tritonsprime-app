@@ -105,6 +105,8 @@ const ItemPage = () => {
         setTransactionStatus(null);
 
         if (!auth.user) return navigate('/walletlogin')              //<Navigate to={'/walletlogin'} state={{from : location}} replace/>
+        
+        if (!auth?.user?.userEmail) return window.alert('please update your profile email at the settings')            //<Navigate to={'/walletlogin'} state={{from : location}} replace/>
 
         if (auth.user.balance < Total && auth.user.balance  === 0 ) {
             setErrMsg('balance is too low to complete this purchase')
@@ -258,6 +260,7 @@ const ItemPage = () => {
             </div>}
             <form ref={form} className="external_form">
                 <input type="text" name='asset_name' value={asset.name}/>
+                <input type="text" name='user_email' value={auth?.user?.userEmail}/>
                 <input type="text" name='user_name' value={auth?.user?.userName}/>
             </form>
         </section>
