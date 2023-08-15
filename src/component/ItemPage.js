@@ -106,7 +106,7 @@ const ItemPage = () => {
 
         if (!auth.user) return navigate('/walletlogin')              //<Navigate to={'/walletlogin'} state={{from : location}} replace/>
         
-        if (!auth?.user?.userEmail) return window.alert('please update your profile email at the settings')            //<Navigate to={'/walletlogin'} state={{from : location}} replace/>
+        if (!auth?.user?.userEmail) return window.alert('please update your profile email    at the settings')            //<Navigate to={'/walletlogin'} state={{from : location}} replace/>
 
         if (auth.user.balance < Total && auth.user.balance  === 0 ) {
             setErrMsg('balance is too low to complete this purchase')

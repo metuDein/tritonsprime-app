@@ -64,13 +64,7 @@ const SupportRequest = () => {
         try {
             setAuthLoading(true);
 
-
-            const imageRef = ref(storage, `supportimages/${uploadImage?.name}`)
-            const snapshot = await uploadBytes(imageRef, uploadImage);
-            const url = await getDownloadURL(snapshot.ref);
-            uploadImg = url;
-
-            const response = await axios.post('/supportrequest', JSON.stringify({ image : uploadImg, itemName : assetName, title : subject, body : body, senderAddress : address, sendername : userName}));
+            const response = await axios.post('/supportrequest', JSON.stringify({ image : compliantImage, itemName : assetName, title : subject, body : body, senderAddress : address, sendername : userName}));
 
             console.log(response.data)
             console.log(response.status)

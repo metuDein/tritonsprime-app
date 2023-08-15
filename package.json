@@ -5,6 +5,8 @@
   "private": true,
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@cloudinary/react": "^1.11.2",
+    "@cloudinary/url-gen": "^1.11.1",
     "@emailjs/browser": "^3.11.0",
     "@ethereumjs/tx": "^4.1.2",
     "@fortawesome/fontawesome-svg-core": "^6.4.0",

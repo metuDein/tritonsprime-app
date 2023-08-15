@@ -20,6 +20,7 @@ const CreateNft = () => {
     const [nftName, setNftName] = useState('');
     const [nftImage, setNftImage] = useState('');
     const [uploadImage, setUploadImage] = useState(null);
+    
 
     const [price, setPrice] = useState('');
     const [description, setDescription] = useState('');
@@ -70,33 +71,17 @@ const CreateNft = () => {
     
     const handleNftCreate = async (e) => {
         e.preventDefault();
+        setAuthLoading(true)
         
         if (!nftName || !nftImage || !price || !description || !supply) {
             
             return window.alert(' all field required');
             
         } else {
-            let uploadImg;
-            const imageRef = ref(storage, `nftimages/${uploadImage.name}`)
             
             try {
-                setAuthLoading(true)
-                const res = await listAll(listRef);
-                const duplicate = res.items.find((item) => item.name === uploadImage?.name);
-                if (duplicate) {
-                    window.alert("This asset already exists");
-                    setAuthLoading(false);
-                    return;
-                }
-    
-                const snapshot = await uploadBytes(imageRef, uploadImage);
-                const url = await getDownloadURL(snapshot.ref);
-                uploadImg = url;
-                console.log(uploadImg);
 
-                if (!uploadImg) return window.alert("asset creation failed");
-
-                const response = await axios.post('/userassets', JSON.stringify({ name: nftName, image: uploadImg, contractAddress: contractAddress, supply: supply, price: price, blockchain: blockChain, desc: description, category: Category, ownername: owner }))
+                const response = await axios.post('/userassets', JSON.stringify({ name: nftName, image: nftImage, contractAddress: contractAddress, supply: supply, price: price, blockchain: blockChain, desc: description, category: Category, ownername: owner }))
 
                 if (response.status === 400) return window.alert('check inputs');
 

@@ -60,6 +60,7 @@ import TermsAndCondition from './component/TermsAndCondition';
 import BlogLIst from './component/BlogLIst';
 import BlogPost from './component/BlogPost';
 import AdminWritePost from './protected routes/AdminWritePost';
+import ImagTest from './component/ImagTest';
 
 
 
@@ -108,6 +109,7 @@ function App() {
               <Route path='/' element={<Layout />}>
               <Route path='/' element={<HomePage bannerData={bannerData} />} />
               <Route path='/support-request' element={<SupportRequest />} />
+              <Route path='/imgtest' element={<ImagTest />} />
 
               <Route path='/collection/:contractAddress' element={<CollectionPage />} />
               <Route path='/itempage/:id' element={<ItemPage toggleBuyTab={toggleBuyTab}/>} />

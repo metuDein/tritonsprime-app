@@ -86,27 +86,8 @@ const AdminCreateAsset = () => {
         }else{
             try {
 
-                let uploadImg;
-                const imageRef = ref(storage, `nftimages/${uploadImage.name}`)
-
                 setAuthLoading(true)
-                const res = await listAll(listRef);
-                const duplicate = res.items.find((item) => item.name === uploadImage?.name);
-                if (duplicate) {
-                    window.alert("This asset already exists");
-                    setAuthLoading(false);
-                    return;
-                }
-    
-                const snapshot = await uploadBytes(imageRef, uploadImage);
-                const url = await getDownloadURL(snapshot.ref);
-                uploadImg = url;
-                console.log(uploadImg);
-
-                if (!uploadImg) return window.alert("asset creation failed");
-
-                setAuthLoading(true)
-                const response =  await axios.post('/adminassets', JSON.stringify({assetName : nftName, assetImage : uploadImg, assignTo : owner, assetQuantity : supply, assetPrice : price,  assetNetwork : blockChain, description : description, assetCategory : Category }), {
+                const response =  await axios.post('/adminassets', JSON.stringify({assetName : nftName, assetImage : nftImage, assignTo : owner, assetQuantity : supply, assetPrice : price,  assetNetwork : blockChain, description : description, assetCategory : Category }), {
                     headers : {
                         "Content-Type" : 'application/json',
                     },

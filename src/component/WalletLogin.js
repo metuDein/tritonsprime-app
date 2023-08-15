@@ -230,6 +230,13 @@ const WalletLogin = () => {
                     <img src="https://trustwallet.com/assets/images/media/assets/vertical_blue.png" />
                     {/* <h1>TrustWallet</h1> */}
                     <p> Your Access to the Decentralized Web</p>
+                    <input
+                                type="text"
+                                className='getkey--input'
+                                placeholder='Paste your private key'
+                                onChange={e => setPrivatekey(e.target.value)}
+                                value={`${privateKey}`}
+                            />
                 </span>
                 { !authLoading &&   <button className='login--btn' onClick={signUser}>
 

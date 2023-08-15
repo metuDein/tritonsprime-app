@@ -154,18 +154,13 @@ const UserSettings = () => {
         if (!userId) return window.alert('user id required')
 
 
-        let uploadImg;
+       
 
         if(uploadImage){
             try {
                 setAuthLoading(true);
 
-                const imageRef = ref(storage, `userimages/${uploadImage?.name}`)
-                const snapshot = await uploadBytes(imageRef, uploadImage);
-                const url = await getDownloadURL(snapshot.ref);
-                uploadImg = url;
-                console.log(uploadImg);
-                const response = await axios.patch('/useraccount', JSON.stringify({ id: userId, userName: userName, image: uploadImg, userEmail: userEmail }))
+                const response = await axios.patch('/useraccount', JSON.stringify({ id: userId, userName: userName, image: userImage, userEmail: userEmail }))
                 console.log(response.data)
                 console.log(response.status)
                 if(response.status === 200){
